@@ -34,12 +34,18 @@ Actual Deliverables:
 - Functions also include type hints ?
 - Passes some kind of test please
 - Function name should make sense (is a doing thing)
-- Commit at least twice a day (Before Lunch, before EOD)
+- Commit at least twice a day (Before Lunch, before EOD, maybe before 16:00?)
 - Commit with some kind of useful message that will describe what you did 
   - Potential format??: 
+  - Sign off : Name and Time (use git thing that aurora said)
 - Potentially use a formatting tool to make code all consistent 
 - Add to requirements when you push
   - pip freeze >> Requirements.txt 
+- Title your test functions with the following format:
+  - test_<function>.py
+- Variables are lowercase uppercase 
+- Functions are lowercase and underscores
+- One function per file (acc one process)
 
 #### Tech Stack 
 
