@@ -1,7 +1,7 @@
 -Set up vm with 2+GiB memory
 
 -Reset the logger for appending
-
+https://www.digitalocean.com/community/tutorials/how-to-use-bash-history-commands-and-expansions-on-a-linux-vps
 
 -Install SQL server
 curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg
