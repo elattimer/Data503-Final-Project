@@ -1,35 +1,8 @@
-from azure.identity import DefaultAzureCredential
-from azure.storage.blob import BlobServiceClient
-from azure.mgmt.resource import ResourceManagementClient, SubscriptionClient
-from azure.mgmt.storage import StorageManagementClient
+
 from io import StringIO
-import csv
-import json
 import pandas as pd
-from pprint import pprint
 
-
-subscription_id = "cd36dfff-6e85-4164-b64e-b4078a773259"
-resource_group = "data503"
-location = "uksouth"
-storage_account_name = "data503paulastorage"
-account_url = f"https://{storage_account_name}.blob.core.windows.net"
-
-credential = DefaultAzureCredential()
-
-resource_client = ResourceManagementClient(credential, subscription_id)
-storage_client = StorageManagementClient(credential, subscription_id)
-
-container_name = "academy"
-
-#blobs
-blob_service_client = BlobServiceClient(account_url=account_url, credential=credential)
-
-# Get the client for the container
-container_client = BlobServiceClient.get_container_client(self=blob_service_client, container=container_name)
-
-
-def extract_csv_course_behaviours(prefix: str):
+def extract_csv_course_behaviours(container_client,prefix: str):
     """ A function to acccess Azure blob storage and create dataframes from the different files based on a given file name prefix.
 
     Args:
@@ -68,15 +41,15 @@ def extract_csv_course_behaviours(prefix: str):
         new_df = pd.concat([new_df, pd.DataFrame(extracted_data)], ignore_index=True)
     return new_df
 
-def create_combined_course_behaviours():
+def create_combined_course_behaviours(container_client):
     """A function to create dataframes for the three different course types and combine them into one large dataframe.
 
     Returns:
         DataFrame: Returns a combined dataframe of all three course types.
     """    
-    data_df = extract_csv_course_behaviours('data')
-    engineering_df = extract_csv_course_behaviours('engineering')
-    business_df = extract_csv_course_behaviours('business')
+    data_df = extract_csv_course_behaviours(container_client,'data')
+    engineering_df = extract_csv_course_behaviours(container_client,'engineering')
+    business_df = extract_csv_course_behaviours(container_client,'business')
 
     course_behaviours_df = pd.concat([data_df, engineering_df, business_df], ignore_index=True)
 

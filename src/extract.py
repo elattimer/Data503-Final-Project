@@ -28,3 +28,5 @@ from transformationScripts.extract_json import *
 
 txt_df = extract_txt_to_df(container_talent)
 applicants_df = extract_csv_apps(container_talent)
+courses_df = create_combined_course_behaviours(container_academy)
+
