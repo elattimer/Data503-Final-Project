@@ -144,4 +144,24 @@ def make_dataframe_from_txt_list(txt_file_objs:list)->pd.DataFrame:
 
         return sparta_day
 
-print(make_dataframe_from_txt_list(txt_file_objs=txt_file_objs))
+
+#----------------------------------------------------------------------------------------------------------------------#
+
+def extract_txt_to_df(container_client)->pd.DataFrame:
+    """
+    Gets all txt blobs from container and collates into a dataframe
+    :param container_client:
+    :return txt_df:
+    """
+    #Get all the txt files and blob objects.
+    txt_blobs = [blob for blob in container_client.list_blobs() if blob.name.endswith(".txt")]
+
+    txt_file_objs = []
+    for blob in txt_blobs:
+        blob_client = container_client.get_blob_client(blob)
+        download_stream = blob_client.download_blob()
+        txt_file_objs.append(download_stream.readall().decode("utf-8"))
+
+    txt_df = make_dataframe_from_txt_list(txt_file_objs)
+    return txt_df
+
