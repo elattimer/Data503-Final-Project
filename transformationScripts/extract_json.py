@@ -34,7 +34,6 @@ dict_df = []
 for blob in container_client.list_blobs():
     #checks for only json files
     if blob.name.endswith(".json"):
-        print(f"Found JSON: {blob.name}")
         print(f"Loading {blob.name} into DataFrame")
         blob_client = container_client.get_blob_client(blob)
         data = blob_client.download_blob().readall()
