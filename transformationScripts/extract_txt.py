@@ -9,29 +9,20 @@ location = "uksouth"
 storage_account_name = "data503paulastorage"
 account_url = f"https://{storage_account_name}.blob.core.windows.net"
 
-#Loaction of txt files
-container_name = "talent"
-
 #az login in bash
 credential = DefaultAzureCredential()
 
 #Create instance of blob service client class for the specific account and user credentials
 blob_service_client = BlobServiceClient(account_url=account_url, credential=credential)
 
-# Get the client for the container from blob_service_client
-container_client = blob_service_client.get_container_client(container_name)
-
 #----------------------------------------------------------------------------------------------------------------------#
 
-#Get all the txt files and blob objects.
-txt_blobs = [blob for blob in container_client.list_blobs() if blob.name.endswith(".txt")]
 
-txt_file_objs = []
-for blob in txt_blobs:
-    blob_client = container_client.get_blob_client(blob)
-    download_stream = blob_client.download_blob()
-    txt_file_objs.append(download_stream.readall().decode("utf-8"))
+#Loaction of txt files
+container_name = "talent"
 
+# Get the client for the container from blob_service_client
+container_client = blob_service_client.get_container_client(container_name)
 #----------------------------------------------------------------------------------------------------------------------#
 
 def get_date_from_line(date_string: str)->datetime:
