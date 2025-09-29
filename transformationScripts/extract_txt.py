@@ -1,5 +1,6 @@
 import pandas as pd
 from datetime import datetime
+from tqdm import tqdm
 
 #----------------------------------------------------------------------------------------------------------------------#
 
@@ -127,7 +128,7 @@ def extract_txt_to_df(container_client)->pd.DataFrame:
     txt_blobs = [blob for blob in container_client.list_blobs() if blob.name.endswith(".txt")]
 
     txt_file_objs = []
-    for blob in txt_blobs:
+    for blob in tqdm(txt_blobs, desc="Extracting .txts"):
         blob_client = container_client.get_blob_client(blob)
         download_stream = blob_client.download_blob()
         txt_file_objs.append(download_stream.readall().decode("utf-8"))

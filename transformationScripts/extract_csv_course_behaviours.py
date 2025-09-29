@@ -1,6 +1,7 @@
 
 from io import StringIO
 import pandas as pd
+from tqdm import tqdm
 
 def extract_csv_course_behaviours(container_client,prefix: str):
     """ A function to acccess Azure blob storage and create dataframes from the different files based on a given file name prefix.
@@ -28,7 +29,7 @@ def extract_csv_course_behaviours(container_client,prefix: str):
         'Independent_W10', 'Determined_W10', 'Professional_W10', 'Studious_W10',
         'Imaginative_W10', 'file_name'])
 
-    for blob in container_client.list_blobs(name_starts_with=f'{prefix.title()}'):
+    for blob in tqdm(container_client.list_blobs(name_starts_with=f'{prefix.title()}'), desc=f"Extracting {prefix.capitalize()} course behaviours .csvs"):
 
         blob_client = container_client.get_blob_client(blob)
 
