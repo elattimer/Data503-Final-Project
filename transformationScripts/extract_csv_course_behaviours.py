@@ -83,4 +83,3 @@ def create_combined_course_behaviours():
     return course_behaviours_df
 
 combined_df = create_combined_course_behaviours()
-print(combined_df)
