@@ -55,7 +55,8 @@ def get_name_from_line(line:str)->str:
     :return name:
     """
     names, sep, scores = line.rpartition(' - ')
-    return names.title()
+
+    return names.strip().upper()
 
 
 def get_psycho_score_from_line(line:str)->int:
@@ -155,4 +156,5 @@ def extract_txt_to_df(container_client)->pd.DataFrame:
 
     txt_df = make_dataframe_from_txt_list(txt_file_objs)
     return txt_df
+
 
