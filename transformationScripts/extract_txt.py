@@ -1,28 +1,6 @@
-from azure.identity import DefaultAzureCredential
-from azure.storage.blob import BlobServiceClient
 import pandas as pd
 from datetime import datetime
 
-subscription_id = "cd36dfff-6e85-4164-b64e-b4078a773259"
-resource_group = "data503"
-location = "uksouth"
-storage_account_name = "data503paulastorage"
-account_url = f"https://{storage_account_name}.blob.core.windows.net"
-
-#az login in bash
-credential = DefaultAzureCredential()
-
-#Create instance of blob service client class for the specific account and user credentials
-blob_service_client = BlobServiceClient(account_url=account_url, credential=credential)
-
-#----------------------------------------------------------------------------------------------------------------------#
-
-
-#Loaction of txt files
-container_name = "talent"
-
-# Get the client for the container from blob_service_client
-container_client = blob_service_client.get_container_client(container_name)
 #----------------------------------------------------------------------------------------------------------------------#
 
 def get_date_from_line(date_string: str)->datetime:
