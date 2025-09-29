@@ -36,11 +36,38 @@ def extract_json():
         if blob.name.endswith(".json"):
             print(f"Loading {blob.name} into DataFrame")
             blob_client = container_client.get_blob_client(blob)
-            data = blob_client.download_blob().readall()
+            data = blob_client.download_blob().readall().decode("utf-8-sig")
             parsed = json.loads(data)
-            df = pd.json_normalize(parsed)
+            try:
+                df = pd.DataFrame([{
+                    "name": parsed["name"],
+                    "date": parsed["date"],
+                    "tech_self_score": parsed["tech_self_score"],  # can be dict
+                    "strengths": parsed["strengths"],              # can be list
+                    "weaknesses": parsed["weaknesses"],
+                    "self_development": parsed["self_development"],
+                    "geo_flex": parsed["geo_flex"],
+                    "financial_support_self": parsed["financial_support_self"],
+                    "result": parsed["result"],
+                    "course_interest": parsed["course_interest"]
+                }])
+            except:
+                df = pd.DataFrame([{
+                    "name": parsed["name"],
+                    "date": parsed["date"],
+                    "tech_self_score": [],
+                    "strengths": parsed["strengths"],
+                    "weaknesses": parsed["weaknesses"],
+                    "self_development": parsed["self_development"],
+                    "geo_flex": parsed["geo_flex"],
+                    "financial_support_self": parsed["financial_support_self"],
+                    "result": parsed["result"],
+                    "course_interest": parsed["course_interest"]
+                }])
             dict_df.append(df)
 
     combined_df = pd.concat(dict_df, ignore_index=True, sort=False)
 
     return combined_df
+
+extract_json()

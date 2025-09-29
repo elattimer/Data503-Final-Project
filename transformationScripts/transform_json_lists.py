@@ -1,7 +1,6 @@
 from extract_json import extract_json
 import pandas as pd
 from datetime import datetime
-import json
 
 def transform_strengths(data: pd.DataFrame) -> pd.DataFrame:
 
