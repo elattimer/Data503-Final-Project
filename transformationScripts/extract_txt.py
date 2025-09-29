@@ -1,28 +1,7 @@
-from azure.identity import DefaultAzureCredential
-from azure.storage.blob import BlobServiceClient
 import pandas as pd
 from datetime import datetime
+from tqdm import tqdm
 
-subscription_id = "cd36dfff-6e85-4164-b64e-b4078a773259"
-resource_group = "data503"
-location = "uksouth"
-storage_account_name = "data503paulastorage"
-account_url = f"https://{storage_account_name}.blob.core.windows.net"
-
-#az login in bash
-credential = DefaultAzureCredential()
-
-#Create instance of blob service client class for the specific account and user credentials
-blob_service_client = BlobServiceClient(account_url=account_url, credential=credential)
-
-#----------------------------------------------------------------------------------------------------------------------#
-
-
-#Loaction of txt files
-container_name = "talent"
-
-# Get the client for the container from blob_service_client
-container_client = blob_service_client.get_container_client(container_name)
 #----------------------------------------------------------------------------------------------------------------------#
 
 def get_date_from_line(date_string: str)->datetime:
@@ -149,7 +128,7 @@ def extract_txt_to_df(container_client)->pd.DataFrame:
     txt_blobs = [blob for blob in container_client.list_blobs() if blob.name.endswith(".txt")]
 
     txt_file_objs = []
-    for blob in txt_blobs:
+    for blob in tqdm(txt_blobs, desc="Extracting .txts"):
         blob_client = container_client.get_blob_client(blob)
         download_stream = blob_client.download_blob()
         txt_file_objs.append(download_stream.readall().decode("utf-8"))
