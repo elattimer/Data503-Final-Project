@@ -3,7 +3,8 @@ from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
 from azure.mgmt.resource import ResourceManagementClient, SubscriptionClient
 from azure.mgmt.storage import StorageManagementClient
-from io import StringIO
+from io import StringIO, BytesIO
+import pandas as pd
 import csv
 import json
 
@@ -29,9 +30,16 @@ blob_service_client = BlobServiceClient(account_url=account_url, credential=cred
 # Get the client for the container
 container_client = BlobServiceClient.get_container_client(self = blob_service_client, container=container_name)
 
-
+dict_df = []
 for blob in container_client.list_blobs():
     #checks for only json files
     if blob.name.endswith(".json"):
-
         print(f"Found JSON: {blob.name}")
+        print(f"Loading {blob.name} into DataFrame")
+        blob_client = container_client.get_blob_client(blob)
+        data = blob_client.download_blob().readall()
+        parsed = json.loads(data)
+        df = pd.json_normalize(parsed)
+        dict_df.append(df)
+
+print(len(dict_df))
