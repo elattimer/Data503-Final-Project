@@ -26,7 +26,7 @@ container_name = "academy"
 blob_service_client = BlobServiceClient(account_url=account_url, credential=credential)
 
 # Get the client for the container
-container_client = BlobServiceClient.get_container_client(self = blob_service_client, container=container_name)
+container_client = BlobServiceClient.get_container_client(self=blob_service_client, container=container_name)
 
 
 def extract_csv_course_behaviours(prefix: str):
@@ -56,7 +56,7 @@ def extract_csv_course_behaviours(prefix: str):
         'Imaginative_W10', 'file_name'])
 
     for blob in container_client.list_blobs(name_starts_with=f'{prefix.title()}'):
-        print(f"Reading blob: {blob.name}")
+
         blob_client = container_client.get_blob_client(blob)
 
         # Download into memory
@@ -81,5 +81,3 @@ def create_combined_course_behaviours():
     course_behaviours_df = pd.concat([data_df, engineering_df, business_df], ignore_index=True)
 
     return course_behaviours_df
-
-combined_df = create_combined_course_behaviours()
