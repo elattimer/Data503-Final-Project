@@ -59,7 +59,7 @@ names_freq = get_name_frequency_dict(df['name'].to_list())
 #Choose person id based on name and course start date
 def get_person_id(name: str, date: datetime,course = False)->int:
     """
-    Intakes name and date, chooses person id from the mapping table. 
+    Intakes name and date, chooses person id from the mapping table.
 
     :param name:
     :param date:
@@ -89,3 +89,14 @@ def get_person_id(name: str, date: datetime,course = False)->int:
             return id
 
     return id
+
+
+"""
+EXAMPLE
+person_ids = []
+for index,row in txt_names.iterrows():
+    person_ids.append(get_person_id(row['name'],row['date']))
+
+txt_names['person_id']= person_ids
+
+"""
