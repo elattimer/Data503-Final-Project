@@ -1,3 +1,4 @@
+from transformationScripts.transform_json import *
 def transform(dict_of_dfs):
     #transform applicants csv
     #transform jsons

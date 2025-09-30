@@ -60,6 +60,6 @@ def get_json_sparta_day_results(data: pd.DataFrame) -> pd.DataFrame:
 # dataSpartaDay = get_json_sparta_day_results(dataOrig.copy(deep=True))
 # print(dataSpartaDay)
 
-# print(get_strengths_frame(dataOrig.copy(deep=True)).drop_duplicates())
-# print(get_weaknesses_frame(dataOrig.copy(deep=True)).drop_duplicates())
-# print(get_tech_skills_frame(dataOrig.copy(deep=True)).drop_duplicates())
+# print(get_strengths_frame(dataOrig.copy(deep=True)).drop_duplicates().isnull().sum())
+# print(get_weaknesses_frame(dataOrig.copy(deep=True)).drop_duplicates().isnull().sum())
+# print(get_tech_skills_frame(dataOrig.copy(deep=True)).drop_duplicates().isnull().sum())
