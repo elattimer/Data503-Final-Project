@@ -1,7 +1,5 @@
-from extract_json import extract_json
 import pandas as pd
 from datetime import datetime
-import json
 
 def get_tech_self_score(data: pd.DataFrame) -> pd.DataFrame:
     df_all = pd.DataFrame()
@@ -43,12 +41,3 @@ def get_tech_self_score(data: pd.DataFrame) -> pd.DataFrame:
             print(row["name"] + ": has no tech scores")
 
     return df_all
-
-
-# with open("13482.json", "r", encoding="utf-8-sig") as f:
-#     record = json.load(f)  # json.load for a single object
-
-# # Wrap in a list to make a DataFrame
-# df = pd.DataFrame([record])
-df = extract_json()
-print(get_tech_self_score(df))

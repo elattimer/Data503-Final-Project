@@ -1,10 +1,9 @@
-
 import pandas as pd
 import json
 from tqdm import tqdm
 
 
-def extract_json(container_client):
+def extract_json(container_client) -> pd.DataFrame:
 
     dict_df = []
     for blob in tqdm(container_client.list_blobs(), desc="Extracting JSONs"):
@@ -17,8 +16,8 @@ def extract_json(container_client):
                 df = pd.DataFrame([{
                     "name": parsed["name"],
                     "date": parsed["date"],
-                    "tech_self_score": parsed["tech_self_score"],  # can be dict
-                    "strengths": parsed["strengths"],              # can be list
+                    "tech_self_score": parsed["tech_self_score"],
+                    "strengths": parsed["strengths"],
                     "weaknesses": parsed["weaknesses"],
                     "self_development": parsed["self_development"],
                     "geo_flex": parsed["geo_flex"],
@@ -44,5 +43,3 @@ def extract_json(container_client):
     combined_df = pd.concat(dict_df, ignore_index=True, sort=False)
 
     return combined_df
-
-extract_json()
