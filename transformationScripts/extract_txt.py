@@ -113,7 +113,7 @@ def make_dataframe_from_txt_list(txt_file_objs:list)->pd.DataFrame:
             if row.notna().any().any():
                 sparta_day = pd.concat([sparta_day, row], ignore_index=True)
 
-        return sparta_day
+    return sparta_day
 
 
 #----------------------------------------------------------------------------------------------------------------------#
