@@ -1,8 +1,17 @@
 from transformationScripts.transform_json import *
+def transform(dict_of_dfs):
+    #transform applicants csv
+    #transform jsons
+    #transform course behaviour csv
 
-def transform(data:dict):
-    finalDict = {}
-    newDictStrengths = {"strengths":transform_strengths(data["json"].copy(deep=True))}
-    finalDict.update(newDictStrengths)
-    print(finalDict)
-    return finalDict
+    #Set personID for applicants_df
+
+    #Create mapping df
+
+    #Create frequency dictionary
+
+    #Set person ids   (mappingdf,dictionary,df)
+
+    #Assemble dfs that match tables in ERD
+
+    return dict_of_dfs
