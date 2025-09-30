@@ -1,7 +1,6 @@
 from extract_json import extract_json
 import pandas as pd
 
-# Load DataFrame
 df = extract_json()
 def transform_course_interest(df: pd.DataFrame) -> pd.DataFrame:
 
@@ -17,8 +16,8 @@ def transform_course_interest(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
-# Call the function and get cleaned DataFrame
+# Call the function 
 df_cleaned = transform_course_interest(df)
 
-# Inspect results
-print(df_cleaned[["course_interest"]].head(10))
+# Inspect results (uncomment to see if its working as expected)
+#print(df_cleaned[["course_interest"]].head(10))
