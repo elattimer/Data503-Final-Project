@@ -1,16 +1,14 @@
 import pandas as pd
 from datetime import datetime
+from transform_json_date_fix import fix_date
 
 def get_tech_self_score(data: pd.DataFrame) -> pd.DataFrame:
     df_all = pd.DataFrame()
     first = True
-    for index, row in data.iterrows():
 
-        #set data to datetime format d/m/y
-        date_data = str(row["date"]).split('/')
-        cleaned = [x for x in date_data if x and x.strip()]
-        date = cleaned[0] +"/"+ cleaned[1] + "/" + cleaned[2]
-        dt = datetime.strptime(date, "%d/%m/%Y")
+    data = fix_date(data)
+
+    for index, row in data.iterrows():
 
         #loop through skills of each person
         d = row["tech_self_score"]
@@ -19,7 +17,7 @@ def get_tech_self_score(data: pd.DataFrame) -> pd.DataFrame:
                 new_data = {
                     "name": [str(row["name"]).upper()],
                     "tech_name": [key],
-                    "date" : [dt.date()],
+                    "date" : [row["date"]],
                     "score" : [value],
                 }
                 new_df = pd.DataFrame(new_data)
@@ -31,7 +29,8 @@ def get_tech_self_score(data: pd.DataFrame) -> pd.DataFrame:
                     # Compare to the larger DataFrame
                     mask = (df_all[list(row_series.index)] == row_series).all(axis=1)
                     if mask.any():
-                        print(str(index) + " Row exists in the DataFrame: " + new_df.to_string())
+                        #print(str(index) + " Row exists in the DataFrame: " + new_df.to_string())
+                        continue
                     else:
                         df_all = pd.concat([df_all,new_df], ignore_index=True)
                 else:

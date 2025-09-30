@@ -6,12 +6,12 @@ import pandas as pd
 #    data = json.load(f)  # load into Python list/dic
     
 #df = pd.json_normalize(data)
-data = extract_json()
-df = data
+# data = extract_json()
+# df = data
 
-print(df["self_development"].value_counts(dropna=False))
+# print(df["self_development"].value_counts(dropna=False))
 
-print(df["result"].value_counts(dropna=False))
+# print(df["result"].value_counts(dropna=False))
 def transform_financial_support_self(df: pd.DataFrame) -> pd.DataFrame:
     def to_bool(val):
         if pd.isnull(val):
@@ -33,8 +33,8 @@ def transform_financial_support_self(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
-# Transform the DataFrame
-df_cleaned = transform_financial_support_self(df)
+# # Transform the DataFrame
+# df_cleaned = transform_financial_support_self(df)
 
-# Inspect result
-print(df_cleaned[["financial_support_self"]])
+# # Inspect result
+# print(df_cleaned[["financial_support_self"]])

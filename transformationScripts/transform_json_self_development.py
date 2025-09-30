@@ -4,10 +4,10 @@ import pandas as pd
 
 #with open(r'C:\Users\nicol\Downloads\10473.json', 'r', encoding='utf-8') as f:
     #data = json.load(f)  # load into Python list/dic
-data = extract_json()
-df = data
+# data = extract_json()
+# df = data
 
-print(df["self_development"].value_counts(dropna=False))
+#print(df["self_development"].value_counts(dropna=False))
 
 def transform_self_development(df: pd.DataFrame) -> pd.DataFrame:
     def to_bool(val):
@@ -30,8 +30,8 @@ def transform_self_development(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
-# Transform the DataFrame
-df_cleaned = transform_self_development(df)
+# # Transform the DataFrame
+# df_cleaned = transform_self_development(df)
 
-# Inspect result
-print(df_cleaned[["self_development"]])
+# # Inspect result
+# print(df_cleaned[["self_development"]])

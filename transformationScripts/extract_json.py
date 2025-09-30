@@ -2,7 +2,6 @@ import pandas as pd
 import json
 from tqdm import tqdm
 
-
 def extract_json(container_client) -> pd.DataFrame:
 
     dict_df = []

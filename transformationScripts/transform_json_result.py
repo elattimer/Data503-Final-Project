@@ -6,10 +6,10 @@ import pandas as pd
     #data = json.load(f)  # load into Python list/dic
     
 #df = pd.json_normalize(data)
-data = extract_json()
-df = data
+# data = extract_json()
+# df = data
 
-print(df["result"].value_counts(dropna=False))
+# print(df["result"].value_counts(dropna=False))
 
 def transform_result(df: pd.DataFrame) -> pd.DataFrame:
     def to_bool(val):
@@ -32,8 +32,8 @@ def transform_result(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
-# Transform the DataFrame
-df_cleaned = transform_result(df)
+# # Transform the DataFrame
+# df_cleaned = transform_result(df)
 
-# Inspect result
-print(df_cleaned[["result"]])
+# # Inspect result
+# print(df_cleaned[["result"]])
