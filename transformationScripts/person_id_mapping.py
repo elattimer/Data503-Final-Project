@@ -6,16 +6,6 @@ from datetime import datetime
 data = extract()
 applicants_df = data['applicants_csv']
 
-#Create df with int date, name and created id
-df = {}
-df['name'] = applicants_df['name']
-df['ínt_date'] = applicants_df['invited_date']
-
-
-# Creates a unique id
-df.index += 1
-df["id"] = df.index
-
 
 
 def strips_names(name: str)->str:
@@ -23,8 +13,17 @@ def strips_names(name: str)->str:
     return stripped_name
 
 
-df = pd.DataFrame(df)
+#Create df with int date, name and created id
+df = applicants_df[['name','invited_date']].rename(columns={'invited_date':'date'})
+
+df['date']=pd.to_datetime(df['date'],dayfirst=True)
+df['date']=df['date'].fillna(datetime(2030,1,1))
 df['name']=df['name'].apply(strips_names)
+
+# Creates a unique id using index
+df.index += 1
+df["id"] = df.index
+
 
 
 def get_name_frequency_dict(names: list) -> dict[str, int]:
@@ -38,7 +37,7 @@ def get_name_frequency_dict(names: list) -> dict[str, int]:
 
     return dict_names
 
-names_freq = get_name_frequency_dict(applicants_df['name'].to_list())
+names_freq = get_name_frequency_dict(df['name'].to_list())
 
 #Choose person id based on name and course start date
 def get_person_id(name, date,course = False):
@@ -52,7 +51,8 @@ def get_person_id(name, date,course = False):
 
     if check > 1:
         if not course:
-            id = df.loc[df['name'] == name,df['date']==date]['id']
+            print(name)
+            id = df.loc[(df['name'] == name) & (df['date']==date)]['id']
 
             return id
 
