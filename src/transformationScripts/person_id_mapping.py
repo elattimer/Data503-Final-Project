@@ -45,6 +45,7 @@ def make_person_id_mapping_df(applicants_df: pd.DataFrame)->pd.DataFrame:
     #Sets datetime object TO BE REMOVED AFTER TRANSFORMATIONS
     df['date']=df['date'].fillna(datetime(2030,1,1))
     df['name']=df['name'].apply(strips_names)
+    return df
 
 
 # Funtion that gets the frequency of names in a list
@@ -77,7 +78,7 @@ def get_frequency_dict(df: pd.DataFrame)->dict[str, int]:
 
 
 #Choose person id based on name and course start date
-def set_person_id(data: pd.DataFrame,mapping_df,names_freq,course = False)->int:
+def set_person_id(data: pd.DataFrame,mapping_df,names_freq,course = False)->pd.DataFrame:
     """
     Intakes name and date, chooses person id from the mapping table.
 
