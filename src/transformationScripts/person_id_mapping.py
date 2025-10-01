@@ -109,13 +109,48 @@ def get_person_id(name: str, date: datetime,course = False)->int:
 
     return id
 
+#Choose person id based on name and course start date
+def set_person_id(data: pd.DataFrame,course = False)->int:
+    """
+    Intakes name and date, chooses person id from the mapping table.
 
-"""
-EXAMPLE
-person_ids = []
-for index,row in txt_names.iterrows():
-    person_ids.append(get_person_id(row['name'],row['date']))
+    :param data:
+    :param course:
+    :return data:
+    """
+    ids = []
 
-txt_names['person_id']= person_ids
+    for index, row in data.iterrows():
+        name = row['name']
+        date = row['date']
 
-"""
+        id = "NOIDSET"
+        name = strips_names(name)
+
+        check = names_freq[name]
+        if check == 1:
+            id = df.loc[df['name']==name]['id'].iloc[0]
+
+
+        if check > 1:
+            if not course:
+                id = df.loc[(df['name'] == name) & (df['date']==date)]['id'].iloc[0]
+
+
+            else:
+                options = df.loc[df['name'] == name,df['date']==date]
+                options['datediff']= (date - options['date']).days
+                options = options.loc[options['datediff']>0]
+                options.sort_values(by='datediff', ascending=True, inplace=True)
+                id = options.index[0]
+
+        ids.append(id)
+
+    data['id'] = ids
+    return data
+
+
+
+
+
+

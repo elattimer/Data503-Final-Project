@@ -1,4 +1,5 @@
 from transformationScripts.transform_json import *
+from transformationScripts.person_id_mapping import *
 def transform(dict_of_dfs):
     finalDict = {}
     #transform applicants csv
@@ -26,12 +27,18 @@ def transform(dict_of_dfs):
     #transform course behaviour csv
 
     #Set personID for applicants_df
+    applicants_df = set_person_id_for_applicants(transformed_applicants)
 
     #Create mapping df
+    df = make_person_id_mapping_df(applicants_df)
 
     #Create frequency dictionary
+    names_freq = get_frequency_dict(df)
 
     #Set person ids   (mappingdf,dictionary,df)
+    #For each transformed dataframe
+    #Need name column 'name'and date column 'date'
+    id_df = set_person_id(df,course=False)
 
     #Assemble dfs that match tables in ERD
 
