@@ -4,9 +4,6 @@ import string
 from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
 
-subscription_id = "cd36dfff-6e85-4164-b64e-b4078a773259"
-resource_group = "data503"
-location = "uksouth"
 storage_account_name = "data503paulastorage"
 account_url = f"https://{storage_account_name}.blob.core.windows.net"
 
@@ -20,28 +17,31 @@ blob_service_client = BlobServiceClient(account_url=account_url, credential=cred
 container_talent = blob_service_client.get_container_client("talent")
 
 data = extract_csv_apps(container_talent)
-# #print(data.columns)
+#print(data.columns)
 
 def transform(data):
     data = data.drop_duplicates(keep = 'first')
     data['name'] = data['name'].str.upper()
-    data['name'] = data['name'].str.replace(f'{{string.punctuation}}', '', regex = True)
+    data['name'] = data['name'].str.replace('[{}]'.format(string.punctuation), '', regex = True)
 
     data['gender'] = data['gender'].fillna('Undisclosed')
 
     data['dob'] = data['dob'].fillna(pd.Timestamp('1900-01-01'))
     data['dob'] = pd.to_datetime(data['dob'], format = 'mixed', dayfirst= True)
 
+
     data['email'] = data['email'].str.lower()
     data['email'] = data['email'].fillna('example@example.com')
 
     data['city'] = data['city'].str.title()
     data['city'] = data['city'].fillna('Unknown')
+
     data['address'] = data['address'].fillna('Unknown')
+
+  
     data['postcode'] = data['postcode'].str.upper()
     data['postcode'] = data['postcode'].fillna('Unknown')
 
-   # Drop unwanted column
     if 'phone_number' in data.columns:
         data = data.drop(columns='phone_number')
 
@@ -50,8 +50,6 @@ def transform(data):
         if pd.isna(row['uni']) and pd.isna(row['degree']):
             row['uni'] = 'Did not attend'
             row['degree'] = 'Did not attend'
-        elif pd.isna(row['uni']):
-            row['uni'] = 'Unknown'
         return row
     data = data.apply(fix_uni_degree, axis = 1)
 
@@ -67,13 +65,15 @@ def transform(data):
     
     data['invited_by'] = data['invited_by'].fillna('Not invited')
     data['invited_by'] = data['invited_by'].str.title()
+    data['invited_by'] = data['invited_by'].str.replace('Bruno Belbrook','Bruno Bellbrook')
+    data['invited_by'] = data['invited_by'].str.replace('Fifi Etton', 'Fifi Eton')
 
     return data
 
 clean_data = transform(data)
 print(clean_data)
 
-print(clean_data.dtypes)
+# print(clean_data.isna().sum())
 
 
 
