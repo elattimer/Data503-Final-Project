@@ -1,6 +1,6 @@
 import pandas as pd
 from datetime import datetime
-from transform_json_date_fix import fix_date
+from transformationScripts.transform_json_date_fix import fix_date
 
 def transform_strengths(data: pd.DataFrame) -> pd.DataFrame:
 

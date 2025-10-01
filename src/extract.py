@@ -1,10 +1,10 @@
 from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
 from warnings import filterwarnings
-from src.transformationScripts.extract_txt import *
-from src.transformationScripts.extract_csv_applicants import *
-from src.transformationScripts.extract_csv_course_behaviours import *
-from src.transformationScripts.extract_json import *
+from transformationScripts.extract_txt import *
+from transformationScripts.extract_csv_applicants import *
+from transformationScripts.extract_csv_course_behaviours import *
+from transformationScripts.extract_json import *
 
 subscription_id = "cd36dfff-6e85-4164-b64e-b4078a773259"
 resource_group = "data503"
