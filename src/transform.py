@@ -1,7 +1,6 @@
 from transformationScripts.transform_json import *
 from transformationScripts.person_id_mapping import *
 from transformationScripts.transform_csv_applicants import *
-
 def transform(dict_of_dfs):
     finalDict = {}
 
@@ -27,13 +26,25 @@ def transform(dict_of_dfs):
     '''
 
     #transform applicants csv
+
+
+    #transformed txt
+    txts = dict_of_dfs["txt"]
+    id_txts = set_person_id(txts,mapping_df,names_freq,course=False)
+    id_txts = id_txts.drop(["name"],axis=1)
     #transform jsons
 
     ## Strengths
     strengthDf = transform_strengths(dict_of_dfs["json"].copy(deep=True))
+
     #set strengths to have a person id and remove the names and dates
-    id_strengths = id_df = set_person_id(strengthDf,mapping_df,names_freq,course=False)
-    id_strengths.drop(['name','date'],axis=1)
+    id_strengths = set_person_id(strengthDf,mapping_df,names_freq,course=False)
+    id_strengths = id_strengths.drop(['name'],axis=1)
+    id_strengths = id_strengths.drop(['date'],axis=1)
+    id_strengths= pd.merge(strengthDf, id_txts, on=["id"])
+    id_strengths = id_strengths.drop(['date'],axis=1)
+    id_strengths = id_strengths.rename(columns={"id": "person_id"})
+    id_strengths = id_strengths.drop(['location','psychometric_score','presentation_score'],axis=1)
     newDictStrengths = {"strengths": id_strengths}
 
     #add strengths to final dict
@@ -42,8 +53,12 @@ def transform(dict_of_dfs):
 
     ## Weaknesses
     weeknessDf = transform_weaknesses(dict_of_dfs["json"].copy(deep=True))
+    weeknessDf= pd.merge(weeknessDf, txts, on="date")
+
     #set strengths to have a person id and remove the names and dates
-    id_weaknesses = id_df = set_person_id(weeknessDf,mapping_df,names_freq,course=False)
+    id_weaknesses = set_person_id(weeknessDf,mapping_df,names_freq,course=False)
+    id_weaknesses = id_weaknesses.rename(columns={"id": "person_id"})
+    id_weaknesses = id_weaknesses.drop(['name','date'],axis=1)
     newDictWeaknesses = {"weaknesses": id_weaknesses}
 
     #add strengths to final dict
