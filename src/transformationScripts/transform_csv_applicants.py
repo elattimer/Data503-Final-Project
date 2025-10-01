@@ -2,7 +2,7 @@ from extract_csv_applicants import extract
 import pandas as pd
 import string
 
-data = extract()
+# data = extract()
 #print(data.columns)
 
 def transform(data):
@@ -53,8 +53,8 @@ def transform(data):
 
     return data
 
-clean_data = transform(data)
-print(clean_data)
+# clean_data = transform(data)
+# print(clean_data)
 
 # null = clean_data.head(1000)
 # print(null)
