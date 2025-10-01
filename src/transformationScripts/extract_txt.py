@@ -109,7 +109,6 @@ def make_dataframe_from_txt_list(txt_file_objs:list)->pd.DataFrame:
         for person in people:
 
             if not person.strip():  # skip empty or whitespace-only lines
-                print(person)
                 continue
 
             name = get_name_from_line(person)
