@@ -50,8 +50,6 @@ MIGUEL BO'dfWEN -  Psychometrics: 58/100, Presentation: 21/32
     })
 
     result = extract_txt_to_df(test=True,test_data=raw_text)
-    print(expected['psychometric_score'])
-    print(result['psychometric_score'])
     pd.testing.assert_frame_equal(
         result.reset_index(drop=True),
         expected.reset_index(drop=True)
