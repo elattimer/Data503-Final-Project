@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 from extract_csv_applicants import extract_csv_apps
+=======
+#from extract_csv_applicants import extract
+>>>>>>> a6d6933784658e3596a1555694077d09d14591b0
 import pandas as pd
 import string
 from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
 
+<<<<<<< HEAD
 storage_account_name = "data503paulastorage"
 account_url = f"https://{storage_account_name}.blob.core.windows.net"
 
@@ -17,9 +22,12 @@ blob_service_client = BlobServiceClient(account_url=account_url, credential=cred
 container_talent = blob_service_client.get_container_client("talent")
 
 data = extract_csv_apps(container_talent)
+=======
+# data = extract()
+>>>>>>> a6d6933784658e3596a1555694077d09d14591b0
 #print(data.columns)
 
-def transform(data):
+def transform_applicants(data):
     data = data.drop_duplicates(keep = 'first')
     data['name'] = data['name'].str.upper()
     data['name'] = data['name'].str.replace('[{}]'.format(string.punctuation), '', regex = True)
@@ -70,8 +78,8 @@ def transform(data):
 
     return data
 
-clean_data = transform(data)
-print(clean_data)
+# clean_data = transform(data)
+# print(clean_data)
 
 # print(clean_data.isna().sum())
 

@@ -1,6 +1,6 @@
 import pandas as pd
 from datetime import datetime
-from transform_json_date_fix import fix_date
+from transformationScripts.transform_json_date_fix import fix_date
 
 def get_tech_self_score(data: pd.DataFrame) -> pd.DataFrame:
     df_all = pd.DataFrame()
