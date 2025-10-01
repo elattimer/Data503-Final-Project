@@ -1,4 +1,4 @@
-from extract_json import extract_json
+from transformationScripts.extract_json import extract_json
 from transform_json_lists import *
 from transform_json_tech_self_score import get_tech_self_score
 from transform_json_course_interest import transform_course_interest
