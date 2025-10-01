@@ -46,12 +46,10 @@ MIGUEL BO'dfWEN -  Psychometrics: 58/100, Presentation: 21/32
         ],
         'psychometric_score':[51,64,58,57,53,48,57,57,53,60,53,70,58,59,58],
         'presentation_score':[23,23,13,16,16,19,16,23,23,20,18,19,21,16,21],
-        'sparta_day_id':[None]*15
+        'sparta_day_id':[1]*15
     })
 
     result = extract_txt_to_df(test=True,test_data=raw_text)
-    print(expected['name'])
-    print(result['name'])
     pd.testing.assert_frame_equal(
         result.reset_index(drop=True),
         expected.reset_index(drop=True)
