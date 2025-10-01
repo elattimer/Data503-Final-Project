@@ -1,17 +1,6 @@
-from extract_json import extract_json
 import json
 import pandas as pd
 
-#with open(r'C:\Users\nicol\Downloads\10473.json', 'r', encoding='utf-8') as f:
-#    data = json.load(f)  # load into Python list/dic
-    
-#df = pd.json_normalize(data)
-# data = extract_json()
-# df = data
-
-# print(df["self_development"].value_counts(dropna=False))
-
-# print(df["result"].value_counts(dropna=False))
 def transform_financial_support_self(df: pd.DataFrame) -> pd.DataFrame:
     def to_bool(val):
         if pd.isnull(val):

@@ -13,3 +13,5 @@ dataTransformed = transform.transform(dataRaw.copy())
 
 # load 
 load.load(dataTransformed)
+
+print("tadahhhh")
