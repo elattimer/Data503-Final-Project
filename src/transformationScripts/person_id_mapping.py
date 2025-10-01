@@ -1,4 +1,4 @@
-from src.extract import extract
+from extract import extract
 import pandas as pd
 import string
 from datetime import datetime
