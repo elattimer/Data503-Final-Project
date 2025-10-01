@@ -1,32 +1,7 @@
-<<<<<<< HEAD
-from extract_csv_applicants import extract_csv_apps
-=======
-#from extract_csv_applicants import extract
->>>>>>> a6d6933784658e3596a1555694077d09d14591b0
 import pandas as pd
 import string
 from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
-
-<<<<<<< HEAD
-storage_account_name = "data503paulastorage"
-account_url = f"https://{storage_account_name}.blob.core.windows.net"
-
-# az login in bash
-credential = DefaultAzureCredential()
-
-# Create instance of blob service client class for the specific account and user credentials
-blob_service_client = BlobServiceClient(account_url=account_url, credential=credential)
-
-# Get the client for the container from blob_service_client
-container_talent = blob_service_client.get_container_client("talent")
-
-data = extract_csv_apps(container_talent)
-=======
-# data = extract()
->>>>>>> a6d6933784658e3596a1555694077d09d14591b0
-#print(data.columns)
-
 def transform_applicants(data):
     data = data.drop_duplicates(keep = 'first')
     data['name'] = data['name'].str.upper()
