@@ -81,9 +81,13 @@ def make_dataframe_from_txt_list(txt_file_objs:list)->pd.DataFrame:
                                        'location',
                                        'name',
                                        'psychometric_score',
-                                       'presentation_score'])
+                                       'presentation_score',
+                                       'sparta_day_id'])
+
+    day_id = 0
 
     for day in txt_file_objs:
+        day_id += 1
         # print(day)
         day_line_list = day.split("\n")
 
@@ -105,10 +109,11 @@ def make_dataframe_from_txt_list(txt_file_objs:list)->pd.DataFrame:
             presentation_score = get_presentation_score_from_line(person)
 
             row = pd.DataFrame({'date':[date],
-                   'location':[location],
-                   'name':[name],
-                   'psychometric_score':[psychometric_score],
-                   'presentation_score':[presentation_score]})
+                                'location':[location],
+                                'name':[name],
+                                'psychometric_score':[psychometric_score],
+                                'presentation_score':[presentation_score],
+                                'sparta_day_id':[day_id]})
 
             if row.notna().any().any():
                 sparta_day = pd.concat([sparta_day, row], ignore_index=True)
