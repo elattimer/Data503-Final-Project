@@ -1,6 +1,7 @@
 import pandas as pd
 from datetime import datetime
 from tqdm import tqdm
+import re
 
 #----------------------------------------------------------------------------------------------------------------------#
 
@@ -38,17 +39,19 @@ def get_name_from_line(line:str)->str:
     return names.strip().upper()
 
 
-def get_psycho_score_from_line(line:str)->int:
-    """
-    Gets psychometrics score from a line of the .txt files
 
-    :param line:
-    :return psycho_score:
+
+def get_psycho_score_from_line(line: str) -> int:
     """
-    names, sep, scores = line.rpartition(' - ')
-    linesplit = scores.split()
-    psycho_score = int(linesplit[1].split("/")[0])
-    return psycho_score
+    Extracts the psychometric score from a line of text like:
+    "DELILA GARRET -  Psychometrics: 51/100, Presentation: 23/32"
+    """
+
+    match = re.search(r'Psychometrics:\s*(\d+)/\d+', line)
+
+    if match:
+        return int(match.group(1))
+    raise ValueError(f"Could not find psychometric score in line: {line}")
 
 def get_presentation_score_from_line(line: str) ->int:
     """
@@ -104,6 +107,11 @@ def make_dataframe_from_txt_list(txt_file_objs:list)->pd.DataFrame:
         #Get lines with person information
         people = day_line_list[2:]
         for person in people:
+
+            if not person.strip():  # skip empty or whitespace-only lines
+                print(person)
+                continue
+
             name = get_name_from_line(person)
 
             psychometric_score = get_psycho_score_from_line(person)
