@@ -31,9 +31,9 @@ There are 4 unique raw data structures that require transformation. The naming c
 Click through to see data cleaning details for each DataFrame:
 - [df_applicants](dtl_sub/dtl_2_df_applicants.md)
 - [df_sparta_day](dtl_sub/dtl_2_df_sparta_day.md)
-- [df_strengths](dtl_sub/dtl_2_df_sparta_day.md)
-- [df_weaknesses](dtl_sub/dtl_2_df_sparta_day.md)
-- [df_tech_skills](dtl_sub/dtl_2_df_sparta_day.md)
+- [df_strengths](dtl_sub/dtl_2_df_strengths.md)
+- [df_weaknesses](dtl_sub/dtl_2_df_weaknesses.md)
+- [df_tech_skills](dtl_sub/dtl_2_df_tech_skills.md)
 - [df_assessment_scores](dtl_sub/dtl_2_df_assessment_scores.md)
 - [df_course](dtl_sub/dtl_2_df_course.md)
 
