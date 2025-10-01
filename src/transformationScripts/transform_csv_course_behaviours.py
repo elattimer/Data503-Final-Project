@@ -1,8 +1,6 @@
-from extract_csv_course_behaviours import create_combined_course_behaviours
-from src.extract import container_academy
+from transformationScripts.extract_csv_course_behaviours import create_combined_course_behaviours
 import pandas as pd
 
-combined_df = create_combined_course_behaviours(container_academy)
 
 def transform_csv_course_behaviours_course(combined_df: pd.DataFrame) -> pd.DataFrame:
     """This accepts a dataframe created from course behaviour CSVs and transforms it into a dataframe that matches the relevant table on the ERD.

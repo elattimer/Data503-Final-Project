@@ -1,6 +1,8 @@
 from transformationScripts.transform_json import *
 from transformationScripts.person_id_mapping import *
 from transformationScripts.transform_csv_applicants import *
+from transformationScripts.transform_csv_course_behaviours import *
+
 def transform(dict_of_dfs):
     finalDict = {}
 
@@ -30,7 +32,7 @@ def transform(dict_of_dfs):
     applicant_sparta_day_merge = applicants_df[['invited_by','person_id']]
     applicant_sql_table = applicants_df.copy().drop(columns=['id','city','address','postcode','invited_by','invited_date'])
     
-    applicant_sql_table = applicant_sql_table.rename(columns={"name":"person_name"})
+    applicant_sql_table = applicant_sql_table.rename(columns={"name":"person_name","dob":"date_of_birth","uni":"university","degree":"university_grade"})
     ## add applicants
     newDictApp = {"applicants":applicant_sql_table}
     finalDict.update(newDictApp)
@@ -39,14 +41,17 @@ def transform(dict_of_dfs):
     postcodeDf = applicants_df[['postcode','city']].copy()
     postcodeDf = postcodeDf.drop_duplicates()
     postcodeDf["post_code_id"] = range(1, len(postcodeDf) + 1)
+    postcodeDf = postcodeDf.rename(columns={"postcode":"post_code"})
     newDictPost = {"postcode":postcodeDf}
     finalDict.update(newDictPost)
 
     ## address table
     addressDf = applicants_df[['address','postcode']].copy()
-    addressDf = pd.merge(addressDf,postcodeDf, on=["postcode"])
-    addressDf = addressDf.drop(columns=["postcode","city"])
+    addressDf = addressDf.rename(columns={"postcode":"post_code"})
+    addressDf = pd.merge(addressDf,postcodeDf, on=["post_code"])
+    addressDf = addressDf.drop(columns=["post_code","city"])
     addressDf = addressDf.drop_duplicates()
+    addressDf = addressDf.rename(columns={"address":"address_line"})
     addressDf["address_id"] = range(1, len(addressDf) + 1)
     newDictAddress = {"address":addressDf}
     finalDict.update(newDictAddress)
@@ -54,8 +59,9 @@ def transform(dict_of_dfs):
     ## person-address
 
     addressDf_forPerson = applicants_df[['address','id']].copy()
-    addressDf_forPerson = pd.merge(addressDf_forPerson,addressDf, on=["address"])
-    addressDf_forPerson = addressDf_forPerson.drop(columns=["address","city"])
+    addressDf_forPerson = addressDf_forPerson.rename(columns={"address":"address_line"})
+    addressDf_forPerson = pd.merge(addressDf_forPerson,addressDf, on=["address_line"])
+    addressDf_forPerson = addressDf_forPerson.drop(columns=["address_line","id"])
     addressDf_forPerson = addressDf_forPerson.drop_duplicates()
     newDictAddressPerson = {"address_person":addressDf_forPerson}
     finalDict.update(newDictAddressPerson)
@@ -130,14 +136,23 @@ def transform(dict_of_dfs):
     json_data_results_id = json_data_results_id.drop(columns=['date'])    
     big_sparta_day_table = pd.merge(json_data_results_id, id_txts.copy(), on=["id"])
     big_sparta_day_table = big_sparta_day_table.drop(columns=['date','name'])
-    big_sparta_day_table = big_sparta_day_table.rename(columns={"id": "person_id"})
-    big_sparta_day_table = pd.merge(big_sparta_day_table, applicant_sparta_day_merge, on=["id"])
+    big_sparta_day_table = big_sparta_day_table.rename(columns={"id": "person_id","presentation_score":"presentation","psychometric_score":"psychometric","financial_support_self":"financial_support"})
+    big_sparta_day_table = pd.merge(big_sparta_day_table, applicant_sparta_day_merge, on=["person_id"])
     
     newDictSpartaDay = {"sparta_day_results": big_sparta_day_table}
     finalDict.update(newDictSpartaDay)
     #transform course behaviour csv
 
+    csv_course = transform_csv_course_behaviours_course(dict_of_dfs["course_behaviours_csv"].copy(deep=True))
+    newDictCsv_course = {"courses": csv_course}
+    finalDict.update(newDictCsv_course)
     
+
+
+    csv_behaviours = transform_csv_course_behaviours_behaviour_scores(dict_of_dfs["course_behaviours_csv"].copy(deep=True))
+    csv_behaviours = csv_behaviours.rename(columns={"start_date":"date","professionalism":"professionalisum","independence":"independance"})
+    newDictCsv_scores = {"behaviours":csv_behaviours}
+    finalDict.update(newDictCsv_scores)
 
     #Assemble dfs that match tables in ERD
 
