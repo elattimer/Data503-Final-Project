@@ -67,15 +67,6 @@ def get_name_frequency_dict(names: list) -> dict[str, int]:
 
     return dict_names
 
-def get_frequency_dict(df: pd.DataFrame)->dict[str, int]:
-    """
-
-    :param df:
-    :return names_freq:
-    """
-    names_freq = get_name_frequency_dict(df['name'].to_list())
-    return names_freq
-
 
 #Choose person id based on name and course start date
 def set_person_id(data: pd.DataFrame,mapping_df,names_freq,course = False)->pd.DataFrame:

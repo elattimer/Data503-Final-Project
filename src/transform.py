@@ -33,7 +33,7 @@ def transform(dict_of_dfs):
     mapping_df = make_person_id_mapping_df(applicants_df)
 
     #Create frequency dictionary
-    names_freq = get_frequency_dict(df)
+    names_freq = get_name_frequency_dict(mapping_df['name'])
 
     #Set person ids   (mappingdf,dictionary,df)
     #For each transformed dataframe
