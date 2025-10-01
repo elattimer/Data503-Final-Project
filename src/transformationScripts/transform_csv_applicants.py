@@ -1,11 +1,11 @@
-from extract_csv_applicants import extract
+#from extract_csv_applicants import extract
 import pandas as pd
 import string
 
 # data = extract()
 #print(data.columns)
 
-def transform(data):
+def transform_applicants(data):
     data = data.drop_duplicates(keep = 'first')
     data['name'] = data['name'].str.upper()
     data['name'] = data['name'].str.replace(f'{{string.punctuation}}', '', regex = True)
