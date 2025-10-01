@@ -4,7 +4,7 @@ import pandas as pd
 from tqdm import tqdm
 
 def extract_csv_course_behaviours(container_client,prefix: str):
-    """ A function to acccess Azure blob storage and create dataframes from the different files based on a given file name prefix.
+    """ A function to access Azure blob storage and create dataframes from the different files based on a given file name prefix.
 
     Args:
         prefix (str): The name of the desired course information.
