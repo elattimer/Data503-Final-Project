@@ -1,9 +1,26 @@
-from extract_csv_applicants import extract
+from extract_csv_applicants import extract_csv_apps
 import pandas as pd
 import string
+from azure.identity import DefaultAzureCredential
+from azure.storage.blob import BlobServiceClient
 
-data = extract()
-#print(data.columns)
+subscription_id = "cd36dfff-6e85-4164-b64e-b4078a773259"
+resource_group = "data503"
+location = "uksouth"
+storage_account_name = "data503paulastorage"
+account_url = f"https://{storage_account_name}.blob.core.windows.net"
+
+# az login in bash
+credential = DefaultAzureCredential()
+
+# Create instance of blob service client class for the specific account and user credentials
+blob_service_client = BlobServiceClient(account_url=account_url, credential=credential)
+
+# Get the client for the container from blob_service_client
+container_talent = blob_service_client.get_container_client("talent")
+
+data = extract_csv_apps(container_talent)
+# #print(data.columns)
 
 def transform(data):
     data = data.drop_duplicates(keep = 'first')
@@ -56,5 +73,7 @@ def transform(data):
 clean_data = transform(data)
 print(clean_data)
 
-# null = clean_data.head(1000)
-# print(null)
+print(clean_data.dtypes)
+
+
+
