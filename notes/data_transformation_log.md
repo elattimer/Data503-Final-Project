@@ -12,7 +12,7 @@ There are 4 unique raw data structures that require transformation. The naming c
 
 ## Transformation plan
 ### Overview
-|---| Step										| Description																				    |
+|   | Step										| Description																				    |
 |-----------------------------------------------|-----------------------------------------------------------------------------------------------|
 | 1 | Raw data to DataFrames					| Parse all raw data into initial DataFrames													|
 | 2 | Data cleaning								| Fix identified errors and ensure consistent data types and formatting across all DataFrames	|
