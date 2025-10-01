@@ -30,7 +30,7 @@ def transform(dict_of_dfs):
     applicants_df = set_person_id_for_applicants(transformed_applicants)
 
     #Create mapping df
-    df = make_person_id_mapping_df(applicants_df)
+    mapping_df = make_person_id_mapping_df(applicants_df)
 
     #Create frequency dictionary
     names_freq = get_frequency_dict(df)
@@ -38,7 +38,7 @@ def transform(dict_of_dfs):
     #Set person ids   (mappingdf,dictionary,df)
     #For each transformed dataframe
     #Need name column 'name'and date column 'date'
-    id_df = set_person_id(df,course=False)
+    id_df = set_person_id(data,mapping_df,names_freq,course=False)
 
     #Assemble dfs that match tables in ERD
 
