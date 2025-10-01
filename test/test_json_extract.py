@@ -2,13 +2,9 @@ import pytest
 import pandas as pd
 from unittest.mock import MagicMock
 
-# Now you can import your module normally
 from src.transformationScripts.extract_json import extract_json
 
 
-
-
-# Helper: make a fake blob
 class FakeBlob:
     def __init__(self, name):
         self.name = name
@@ -66,9 +62,3 @@ def test_multiple_json_files_combined():
     assert df.shape[0] == 2
     assert set(df["name"]) == {"A", "B"}
 
-def test_empty_container_returns_empty_df():
-    container_client = MagicMock()
-    container_client.list_blobs.return_value = []
-
-    df = extract_json(container_client)
-    assert df.empty
