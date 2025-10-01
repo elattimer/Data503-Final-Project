@@ -37,6 +37,7 @@ def get_tech_self_score(data: pd.DataFrame) -> pd.DataFrame:
                     first = False
                     df_all = pd.concat([df_all,new_df], ignore_index=True)
         except:
-            print(row["name"] + ": has no tech scores")
+            #print(row["name"] + ": has no tech scores")
+            continue
 
     return df_all

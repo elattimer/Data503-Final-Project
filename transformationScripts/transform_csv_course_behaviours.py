@@ -1,5 +1,0 @@
-from extract_csv_course_behaviours import create_combined_course_behaviours
-
-combined_df = create_combined_course_behaviours()
-
-print(combined_df)
