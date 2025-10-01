@@ -1,7 +1,12 @@
 import pytest
 import pandas as pd
 from datetime import datetime
-from src.transformationScripts.extract_txt import extract_txt_to_df
+import sys
+from pathlib import Path
+
+# Add src folder to path
+sys.path.append(str(Path(__file__).resolve().parent.parent / "src"))
+from transformationScripts.extract_txt import extract_txt_to_df
 
 def test_extract_txt():
     raw_text = """Tuesday 9 April 2019
