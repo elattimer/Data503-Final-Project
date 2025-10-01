@@ -27,6 +27,38 @@ def transform(dict_of_dfs):
 
     #transform applicants csv
 
+    applicant_sparta_day_merge = applicants_df[['invited_by','person_id']]
+    applicant_sql_table = applicants_df.copy().drop(columns=['id','city','address','postcode','invited_by','invited_date'])
+    
+    applicant_sql_table = applicant_sql_table.rename(columns={"name":"person_name"})
+    ## add applicants
+    newDictApp = {"applicants":applicant_sql_table}
+    finalDict.update(newDictApp)
+
+    ## postcode table
+    postcodeDf = applicants_df[['postcode','city']].copy()
+    postcodeDf = postcodeDf.drop_duplicates()
+    postcodeDf["post_code_id"] = range(1, len(postcodeDf) + 1)
+    newDictPost = {"postcode":postcodeDf}
+    finalDict.update(newDictPost)
+
+    ## address table
+    addressDf = applicants_df[['address','postcode']].copy()
+    addressDf = pd.merge(addressDf,postcodeDf, on=["postcode"])
+    addressDf = addressDf.drop(columns=["postcode","city"])
+    addressDf = addressDf.drop_duplicates()
+    addressDf["address_id"] = range(1, len(addressDf) + 1)
+    newDictAddress = {"address":addressDf}
+    finalDict.update(newDictAddress)
+
+    ## person-address
+
+    addressDf_forPerson = applicants_df[['address','id']].copy()
+    addressDf_forPerson = pd.merge(addressDf_forPerson,addressDf, on=["address"])
+    addressDf_forPerson = addressDf_forPerson.drop(columns=["address","city"])
+    addressDf_forPerson = addressDf_forPerson.drop_duplicates()
+    newDictAddressPerson = {"address_person":addressDf_forPerson}
+    finalDict.update(newDictAddressPerson)
 
     #transformed txt
     txts = dict_of_dfs["txt"]
@@ -34,6 +66,7 @@ def transform(dict_of_dfs):
     id_txts = id_txts.drop(["name"],axis=1)
     sparta_day_sql = id_txts.drop(columns=['psychometric_score','presentation_score','id'])
     sparta_day_sql = sparta_day_sql.rename(columns={"date": "day_Date", "location":"day_location"})
+    sparta_day_sql = sparta_day_sql.drop_duplicates()
     #add sparta day to final dict
     newDictTxt = {"sparta_day":sparta_day_sql}
     finalDict.update(newDictTxt)
@@ -94,9 +127,14 @@ def transform(dict_of_dfs):
     #SpartaDayResults + txt SpartaDayResults
     json_data_results = get_json_sparta_day_results(dict_of_dfs["json"].copy(deep=True))
     json_data_results_id = set_person_id(json_data_results,mapping_df,names_freq,course=False)
+    json_data_results_id = json_data_results_id.drop(columns=['date'])    
     big_sparta_day_table = pd.merge(json_data_results_id, id_txts.copy(), on=["id"])
-
-
+    big_sparta_day_table = big_sparta_day_table.drop(columns=['date','name'])
+    big_sparta_day_table = big_sparta_day_table.rename(columns={"id": "person_id"})
+    big_sparta_day_table = pd.merge(big_sparta_day_table, applicant_sparta_day_merge, on=["id"])
+    
+    newDictSpartaDay = {"sparta_day_results": big_sparta_day_table}
+    finalDict.update(newDictSpartaDay)
     #transform course behaviour csv
 
     
