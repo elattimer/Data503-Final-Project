@@ -7,7 +7,7 @@ from passwords.passwords import get_database_password
 def server_connection() -> sqlalchemy.engine.base.Engine:
     # Connection details
     server = "127.0.0.1,14330"  # local port forwarded by SSH
-    database = "SpartaRecruits"
+    database = "SpartaRecruits2"
     username = "SA"
     password = get_database_password()
     # ODBC connection string
