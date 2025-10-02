@@ -7,6 +7,7 @@ from unittest.mock import MagicMock, patch
 def mock_container_client():
     return MagicMock()
 
+
 def test_no_blobs_return_empty_df(mock_container_client):
     mock_container_client.list_blobs.return_value = []
 
@@ -14,6 +15,7 @@ def test_no_blobs_return_empty_df(mock_container_client):
 
     assert isinstance(result, pd.DataFrame)
     assert result.empty
+
 
 def test_single_blob_returns_correct_data(mock_container_client):
     sample_csv = 'name,trainer,Analytic_W1\nJohn,Frank,5'
@@ -35,6 +37,7 @@ def test_single_blob_returns_correct_data(mock_container_client):
     assert result.iloc[0]['trainer'] == 'Frank'
     assert result.iloc[0]['Analytic_W1'] == 5
     assert result.iloc[0]['file_name'] == 'Engineering_17_2019-02-18.csv'
+
 
 def test_two_blobs_returns_correct_data(mock_container_client):
     sample_csv1 = 'name,trainer,Analytic_W1\nJohn,Frank,5'
@@ -67,6 +70,7 @@ def test_two_blobs_returns_correct_data(mock_container_client):
     assert result.iloc[1]['trainer'] == 'Carly'
     assert result.iloc[1]['Analytic_W1'] == 8
     assert result.iloc[1]['file_name'] == 'Engineering_20_2019-05-06.csv'
+
 
 def test_create_combined_course_behaviours_combines_data():
     data_df = pd.DataFrame({'name': ['John'], 'trainer': ['Frank'], 'Analytic_W1': [5]})
