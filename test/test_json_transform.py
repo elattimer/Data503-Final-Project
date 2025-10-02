@@ -18,6 +18,7 @@ from transformationScripts.transform_json_lists import transform_strengths
 from transformationScripts.transform_json_lists import transform_weaknesses
 from transformationScripts.transform_json_result import transform_result
 from transformationScripts.transform_json_self_development import transform_self_development
+from transformationScripts.transform_json_tech_self_score import get_tech_self_score
 
 test_json = pd.read_csv("test/test_json_cvs.csv")
 # Convert column
@@ -260,3 +261,35 @@ def test_transform_self_development():
     )
 
     pd.testing.assert_series_equal(result, expected)
+
+def test_get_tech_self_score():
+    # Sample input data
+    test_data = pd.DataFrame({
+        "name": ["Alice Smith", "Bob Jones", "Charlie King"],
+        "date": ["01/01/2020", "02/01/2020", "03/01/2020"],
+        "tech_self_score": [
+            {"Python": 5, "Java": 3},
+            {"C++": 4},
+            {}  # No tech scores for Charlie
+        ]
+    })
+
+    # Convert dates to datetime
+    test_data["date"] = pd.to_datetime(test_data["date"], format="%d/%m/%Y")
+
+    # Call the function
+    result = get_tech_self_score(test_data)
+
+    # Expected output
+    expected = pd.DataFrame({
+        "name": ["ALICE SMITH", "ALICE SMITH", "BOB JONES"],
+        "tech_name": ["Python", "Java", "C++"],
+        "date": pd.to_datetime(["2020-01-01", "2020-01-01", "2020-01-02"]),
+        "score": [5, 3, 4]
+    })
+
+    # Ensure all columns exist and are in same order
+    result = result[expected.columns]
+
+    # Test equality
+    pd.testing.assert_frame_equal(result.reset_index(drop=True), expected.reset_index(drop=True))
