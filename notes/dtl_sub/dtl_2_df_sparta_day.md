@@ -1,5 +1,5 @@
 # `df_sparta_day`
-<- [Back to transformation log](../data_transformation_log.md)
+<- [Back to transformation review](../data_transformation_review.md)
 
 ## Data table	
 | Field name			| Original data type	| Target data type	| Transformation details									| Null placeholder  |	
@@ -10,4 +10,6 @@
 | psychometric_score	| `str`					| `int`				| Remove `"/100"`, convert to `int`							|					|
 | presentation_score	| `str`					| `int`				| Remove `"/32"`, convert to `int`							|					|
 
-## Additional details
+## Further details
+### Dropped rows
+Duplicate rows are dropped to account for copies of the same JSON in the raw data

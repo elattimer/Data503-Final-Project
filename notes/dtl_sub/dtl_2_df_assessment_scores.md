@@ -1,5 +1,5 @@
 # `df_assessment_scores`
-<- [Back to transformation log](../data_transformation_log.md)
+<- [Back to transformation review](../data_transformation_review.md)
 
 ## Data table	
 | Field name				| Original data type	| Target data type	| Transformation details									| Null placeholder |
@@ -12,4 +12,4 @@
 | result					| `str`					| `bool`			| Covert to true/false from yes/no or 1/0 strs				| False            |
 | course_interest			| `str`					| `str`				| Set to uppercase											| "NO INTEREST"    |
 
-## Additional details
+## Further details

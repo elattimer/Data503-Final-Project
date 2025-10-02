@@ -1,5 +1,5 @@
 # `df_applicants`
-<- [Back to transformation log](../data_transformation_log.md)
+<- [Back to transformation review](../data_transformation_review.md)
 
 ## Data table
 | Field name   | Original data type | Target data type	| Transformation details														| Null placeholder								|
@@ -17,7 +17,7 @@
 | invited_date | `float`            | `datetime`		| Japanese format: `yyyy-mm-dd` <br>Combine `invited_date` and `month` columns	| `1900-01-01`									|
 | invited_by   | `str`              | `str`				| Capitalise and correct misspelled names										| `1900-01-01`									|
 
-## Additional details
+## Further details
 ### Dropped columns
 - `month` -> combined into `invited_date`
 - `phone_number` -> not required for PowerBI analysis

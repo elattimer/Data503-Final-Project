@@ -66,4 +66,4 @@ Branches should be named by their features, not by the Authors
 Pulls will have to be requested and approved by Edward before they will be committed to the main branch.
 
 #### Further Documentation
-[Data Transformation Log](notes/data_transformation_log.md)
+[Data Transformation Review](notes/data_transformation_review.md)
