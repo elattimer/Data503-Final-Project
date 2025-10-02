@@ -168,9 +168,11 @@ def transform(dict_of_dfs):
 
 
     csv_behaviours = transform_csv_course_behaviours_behaviour_scores(dict_of_dfs["course_behaviours_csv"].copy(deep=True))
-    csv_behaviours = csv_behaviours.drop(columns=['start_date','name'])
-    csv_behaviours = csv_behaviours.rename(columns={"start_date":"date","professionalism":"professionalisum","independence":"independance"})
-    newDictCsv_scores = {"behaviours":csv_behaviours}
+    csv_behaviours = csv_behaviours.rename(columns={"start_date":"date"})
+    id_behaviours = set_person_id(csv_behaviours,mapping_df,names_freq,course=False)
+    id_behaviours = id_behaviours.drop(columns=['date','name'])
+    id_behaviours = id_behaviours.rename(columns={"professionalism":"professionalisum","independence":"independance","id":"person_id"})
+    newDictCsv_scores = {"behaviours":id_behaviours}
     finalDict.update(newDictCsv_scores)
 
     print("CourseBehaviours.csv Transformed")

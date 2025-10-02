@@ -9,7 +9,7 @@ def server_connection() -> sqlalchemy.engine.base.Engine:
     server = "127.0.0.1,14330"  # local port forwarded by SSH
     database = "SpartaRecruits"
     username = "SA"
-    password = get_database_password
+    password = get_database_password()
     # ODBC connection string
     conn_str = (
         "DRIVER={ODBC Driver 17 for SQL Server};"
