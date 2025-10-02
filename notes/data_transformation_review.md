@@ -1,5 +1,5 @@
 # Data Transformation Review
-<- [Back to README](../README.md)
+&larr; [Back to README](../README.md)
 
 ## Raw data exploration
 There were 4 unique raw data structures that required transformation. The naming convention and internal structure of each file was consistent with its respective 'type'.
@@ -13,23 +13,23 @@ There were 4 unique raw data structures that required transformation. The naming
 
 ## Transformation plan
 ### Overview
-|   | Step										| Description																				    |
-|---|-------------------------------------------|-----------------------------------------------------------------------------------------------|
-| 1 | Raw data to DataFrames					| Parse all raw data into initial DataFrames													|
-| 2 | Data cleaning								| Fix identified errors and ensure consistent data types and formatting across all DataFrames	|
-| 3 | Create DataFrames for DB schema tables	| Restructure into DataFrames that describe the SQL database schema tables						|   
+|   | Step												| Description																				    |
+|---|---------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| 1 | Raw data to DataFrames							| Parse all raw data into initial DataFrames													|
+| 2 | Data cleaning										| Fix identified errors and ensure consistent data types and formatting across all DataFrames	|
+| 3 | Structure DataFrames to match DB schema tables	| Restructure into DataFrames that describe the SQL database schema tables						|   
 
 ### 1. Raw data to DataFrames
-`applicants.csv` -> `df_applicants`
+`applicants.csv` &rarr; `df_applicants`
 
-`sparta_day.csv` -> `df_sparta_day`
+`sparta_day.csv` &rarr; `df_sparta_day`
 
-`assessment_scores.json` -> `df_assessment_scores`, `df_strengths`, `df_weaknesses`, `df_tech_skills`
+`assessment_scores.json` &rarr; `df_assessment_scores`, `df_strengths`, `df_weaknesses`, `df_tech_skills`
 
-`course.csv` -> `df_course`, `df_behaviour_scores`
+`course.csv` &rarr; `df_course`, `df_behaviour_scores`
 
 ### 2. Cleaning DataFrame data
-This step of the process involved converting data to correct data types and ensuring consistent formatting across DataFrames. In dealing with potenital null values, placeholder values matching the target data type were agreed upon. These rules did not always need to be applied.
+This step of the process involved converting the data to correct data types and ensuring consistent formatting across DataFrames. In dealing with potenital null values, placeholder values matching the target data type were agreed upon. These rules did not always need to be applied.
 
 In anticipation of generating unique IDs for each applicant, applicant names and assessment day/course start dates were duplicated across DataFrames, as these were required for mapping the correct IDs.
 
@@ -43,4 +43,4 @@ Click through to see data cleaning details for each DataFrame:
 - [df_course](dtl_sub/dtl_2_df_course.md)
 - [df_behaviour_scores](dtl_sub/dtl_2_df_behaviour_scores.md)
 
-### 3. Create DataFrames for DB schema tables
+### 3. Structure DataFrames to match DB schema tables

@@ -1,5 +1,5 @@
 # `df_applicants`
-<- [Back to transformation review](../data_transformation_review.md)
+&larr; [Back to transformation review](../data_transformation_review.md)
 
 ## Data table
 | Column name  | Original data type | Target data type	| Transformation details														| Null placeholder rule							|
@@ -18,5 +18,5 @@
 
 ## Further details
 ### Dropped columns
-- `month` -> combined into `invited_date`
-- `phone_number` -> not required for PowerBI analysis
+- `month` &rarr; combined into `invited_date`
+- `phone_number` &rarr; not required for PowerBI analysis

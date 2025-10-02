@@ -1,5 +1,5 @@
 # `df_behaviour_scores`
-<- [Back to transformation review](../data_transformation_review.md)
+&larr; [Back to transformation review](../data_transformation_review.md)
 
 ## Data table	
 | Column name				| Original data type	| Target data type	| Transformation details									 | Null placeholder rule |
