@@ -17,6 +17,7 @@ from transformationScripts.transform_json_geo_flex import transform_geo_flex
 from transformationScripts.transform_json_lists import transform_strengths
 from transformationScripts.transform_json_lists import transform_weaknesses
 from transformationScripts.transform_json_result import transform_result
+from transformationScripts.transform_json_self_development import transform_self_development
 
 test_json = pd.read_csv("test/test_json_cvs.csv")
 # Convert column
@@ -252,3 +253,15 @@ def test_transform_results():
 
     pd.testing.assert_series_equal(result, expected)
 
+def test_transform_self_development():
+    result = transform_self_development(test_json)['self_development']
+    expected = pd.Series(
+        [True, False, True, True, True, False, False, False, False, True, False],
+        name='self_development',
+        dtype=bool
+    )
+
+    print(result)
+    pd.testing.assert_series_equal(result, expected)
+
+test_transform_self_development()
