@@ -2,7 +2,7 @@
 <- [Back to README](../README.md)
 
 ## Raw data exploration
-There are 4 unique raw data structures that require transformation. The naming convention and internal structure of each file is consistent with its respective 'type'.
+There were 4 unique raw data structures that required transformation. The naming convention and internal structure of each file was consistent with its respective 'type'.
 
 | Data													| Documentation shorthand	| File name example              |
 |-------------------------------------------------------|---------------------------|--------------------------------|	
@@ -22,20 +22,25 @@ There are 4 unique raw data structures that require transformation. The naming c
 ### 1. Raw data to DataFrames
 `applicants.csv` -> `df_applicants`
 
-`sparta_day.csv` -> `df_sparta_day`, `df_strengths`, `df_weaknesses`, `df_tech_skills`
+`sparta_day.csv` -> `df_sparta_day`
 
-`assessment_scores.json` -> `df_assessment_scores`
+`assessment_scores.json` -> `df_assessment_scores`, `df_strengths`, `df_weaknesses`, `df_tech_skills`
 
-`course.csv` -> `df_course`
+`course.csv` -> `df_course`, `df_behaviour_scores`
 
 ### 2. Cleaning DataFrame data
+This step of the process involved converting data to correct data types and ensuring consistent formatting across DataFrames. In dealing with potenital null values, placeholder values matching the target data type were agreed upon. These rules did not always need to be applied.
+
+In anticipation of generating unique IDs for each applicant, applicant names and assessment day/course start dates were duplicated across DataFrames, as these were required for mapping the correct IDs.
+
 Click through to see data cleaning details for each DataFrame:
 - [df_applicants](dtl_sub/dtl_2_df_applicants.md)
 - [df_sparta_day](dtl_sub/dtl_2_df_sparta_day.md)
+- [df_assessment_scores](dtl_sub/dtl_2_df_assessment_scores.md)
 - [df_strengths](dtl_sub/dtl_2_df_strengths.md)
 - [df_weaknesses](dtl_sub/dtl_2_df_weaknesses.md)
 - [df_tech_skills](dtl_sub/dtl_2_df_tech_skills.md)
-- [df_assessment_scores](dtl_sub/dtl_2_df_assessment_scores.md)
 - [df_course](dtl_sub/dtl_2_df_course.md)
+- [df_behaviour_scores](dtl_sub/dtl_2_df_behaviour_scores.md)
 
 ### 3. Create DataFrames for DB schema tables
