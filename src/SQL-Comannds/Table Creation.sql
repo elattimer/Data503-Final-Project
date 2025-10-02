@@ -47,7 +47,7 @@ BEGIN
         imaginative INT,
         PRIMARY KEY(person_id, course_id, week),
         FOREIGN KEY (person_id) REFERENCES person(person_id),
-        FOREIGN KEY (course_id) REFERENCES course(course_id),
+        FOREIGN KEY (course_id) REFERENCES courses(course_id),
     );
 END
 
@@ -89,7 +89,7 @@ BEGIN
         address_id INT,
         PRIMARY KEY(person_id,address_id),
         FOREIGN KEY (person_id) REFERENCES person(person_id),
-        FOREIGN KEY (address_id) REFERENCES addresses(address_id),
+        FOREIGN KEY (address_id) REFERENCES address(address_id),
     );
 END
 
