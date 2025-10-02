@@ -5,8 +5,9 @@ from transformationScripts.extract_txt import *
 from transformationScripts.extract_csv_applicants import *
 from transformationScripts.extract_csv_course_behaviours import *
 from transformationScripts.extract_json import *
+from passwords.passwords import get_az_password
 
-subscription_id = "cd36dfff-6e85-4164-b64e-b4078a773259"
+subscription_id = get_az_password
 resource_group = "data503"
 location = "uksouth"
 storage_account_name = "data503paulastorage"

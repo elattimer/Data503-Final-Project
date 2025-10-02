@@ -2,14 +2,14 @@ import urllib
 import pandas as pd
 from sqlalchemy import create_engine
 import sqlalchemy.engine.base
-
+from passwords.passwords import get_database_password
 
 def server_connection() -> sqlalchemy.engine.base.Engine:
     # Connection details
     server = "127.0.0.1,14330"  # local port forwarded by SSH
     database = "SpartaRecruits"
     username = "SA"
-    password = "1234!\"£$Q" # 1234!"£$Q
+    password = get_database_password
     # ODBC connection string
     conn_str = (
         "DRIVER={ODBC Driver 17 for SQL Server};"
