@@ -44,3 +44,6 @@ Click through to see data cleaning details for each DataFrame:
 - [df_behaviour_scores](dtr_sub/dtr_2_df_behaviour_scores.md)
 
 ### 3. Structure DataFrames to match DB schema tables
+- Generate and map person ID for each applicant
+- Restructure DataFrames to match SQL database schema
+- Everything now ready to load
