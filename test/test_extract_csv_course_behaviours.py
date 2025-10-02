@@ -74,7 +74,6 @@ def test_create_combined_course_behaviours_combines_data():
     business_df = pd.DataFrame({'name': ['Gary'], 'trainer': ['Sandra'], 'Analytic_W1': [6]})
 
     with patch('src.transformationScripts.extract_csv_course_behaviours.extract_csv_course_behaviours', side_effect=[data_df, engineering_df, business_df]) as mock_extract:
-        mock_container_client = MagicMock()
         result = create_combined_course_behaviours(mock_container_client)
 
         mock_extract.assert_any_call(mock_container_client, 'data')
