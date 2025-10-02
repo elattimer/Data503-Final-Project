@@ -61,10 +61,15 @@ def transform(dict_of_dfs):
     addressDf_forPerson = applicants_df[['address','id']].copy()
     addressDf_forPerson = addressDf_forPerson.rename(columns={"address":"address_line"})
     addressDf_forPerson = pd.merge(addressDf_forPerson,addressDf, on=["address_line"])
-    addressDf_forPerson = addressDf_forPerson.drop(columns=["address_line","id"])
+    addressDf_forPerson = addressDf_forPerson.drop(columns=["address_line","post_code_id"])
+    addressDf_forPerson = addressDf_forPerson.rename(columns={"id":"person_id"})
     addressDf_forPerson = addressDf_forPerson.drop_duplicates()
     newDictAddressPerson = {"address_person":addressDf_forPerson}
     finalDict.update(newDictAddressPerson)
+
+
+
+    print("applicants.csv Transformed")
 
     #transformed txt
     txts = dict_of_dfs["txt"]
@@ -76,6 +81,9 @@ def transform(dict_of_dfs):
     #add sparta day to final dict
     newDictTxt = {"sparta_day":sparta_day_sql}
     finalDict.update(newDictTxt)
+
+
+    print("txt`s Transformed")
 
     #transform jsons
 
@@ -94,7 +102,7 @@ def transform(dict_of_dfs):
 
     #add strengths to final dict
     finalDict.update(newDictStrengths)
-
+    print("Json-strengths Transformed")
 
     ## Weaknesses
     weaknessesDf = transform_weaknesses(dict_of_dfs["json"].copy(deep=True))
@@ -111,7 +119,7 @@ def transform(dict_of_dfs):
 
     #add Weaknesses to final dict
     finalDict.update(newDictWeaknesses)
-
+    print("Json-weaknesses Transformed")
 
     ## TechSkills
     techSkillsDf = get_tech_skills_frame(dict_of_dfs["json"].copy(deep=True))
@@ -128,19 +136,29 @@ def transform(dict_of_dfs):
 
     #add TechSkills to final dict
     finalDict.update(newDictTechSkills)
-
+    print("Json-techSkills Transformed")
 
     #SpartaDayResults + txt SpartaDayResults
     json_data_results = get_json_sparta_day_results(dict_of_dfs["json"].copy(deep=True))
     json_data_results_id = set_person_id(json_data_results,mapping_df,names_freq,course=False)
     json_data_results_id = json_data_results_id.drop(columns=['date'])    
     big_sparta_day_table = pd.merge(json_data_results_id, id_txts.copy(), on=["id"])
-    big_sparta_day_table = big_sparta_day_table.drop(columns=['date','name'])
-    big_sparta_day_table = big_sparta_day_table.rename(columns={"id": "person_id","presentation_score":"presentation","psychometric_score":"psychometric","financial_support_self":"financial_support"})
+    big_sparta_day_table = big_sparta_day_table.drop(columns=['date','name','location'])
+    big_sparta_day_table = big_sparta_day_table.rename(columns={
+        "id": "person_id",
+        "presentation_score":"presentation",
+        "psychometric_score":"psychometric",
+        "financial_support_self":"financial_support"
+        })
     big_sparta_day_table = pd.merge(big_sparta_day_table, applicant_sparta_day_merge, on=["person_id"])
     
     newDictSpartaDay = {"sparta_day_results": big_sparta_day_table}
     finalDict.update(newDictSpartaDay)
+    print("Json-SpartaDayResults Transformed")
+
+    print("Json's Transformed")
+
+
     #transform course behaviour csv
 
     csv_course = transform_csv_course_behaviours_course(dict_of_dfs["course_behaviours_csv"].copy(deep=True))
@@ -150,10 +168,13 @@ def transform(dict_of_dfs):
 
 
     csv_behaviours = transform_csv_course_behaviours_behaviour_scores(dict_of_dfs["course_behaviours_csv"].copy(deep=True))
-    csv_behaviours = csv_behaviours.rename(columns={"start_date":"date","professionalism":"professionalisum","independence":"independance"})
-    newDictCsv_scores = {"behaviours":csv_behaviours}
+    csv_behaviours = csv_behaviours.rename(columns={"start_date":"date"})
+    id_behaviours = set_person_id(csv_behaviours,mapping_df,names_freq,course=False)
+    id_behaviours = id_behaviours.drop(columns=['date','name'])
+    id_behaviours = id_behaviours.rename(columns={"professionalism":"professionalisum","independence":"independance","id":"person_id"})
+    newDictCsv_scores = {"behaviours":id_behaviours}
     finalDict.update(newDictCsv_scores)
 
-    #Assemble dfs that match tables in ERD
+    print("CourseBehaviours.csv Transformed")
 
     return finalDict
