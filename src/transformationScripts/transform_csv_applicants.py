@@ -2,6 +2,8 @@ import pandas as pd
 import string
 from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
+from pandas._libs.tslibs.parsing import DateParseError
+
 def transform_applicants(data):
     data = data.drop_duplicates(keep = 'first')
     data['name'] = data['name'].str.upper()
@@ -40,8 +42,12 @@ def transform_applicants(data):
     data['degree'] = data['degree'].str.replace('3rd', '3:1')
 
     data["invited_date"] = data['invited_date'].astype(str) + " " + data["month"]
-    data['invited_date'] = data['invited_date'].fillna(pd.Timestamp('1900-01-01'))
-    data['invited_date'] = pd.to_datetime(data['invited_date'], format = 'mixed', dayfirst= True)
+    
+    for n in range(len(data['invited_date'])):
+        try:
+            data['invited_date'][n] = pd.to_datetime(data['invited_date'][n], format = 'mixed', dayfirst= True)
+        except DateParseError: 
+            data['invited_date'][n] = pd.Timestamp('1900-01-01')
     
     if 'month' in data.columns:
         data = data.drop(columns='month')
