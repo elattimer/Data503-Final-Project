@@ -13,4 +13,4 @@
 
 ## Further details
 ### Parsing
-Assessment day data was contained in .txt files, which required parsing the data and assigning it to variables before loading everything into the DataFrame. The formatting of each .txt was consistent, meaning the same logic could be applied across all files.
+Assessment day data is contained in .txt files, which requires parsing the data and assigning it to variables before loading everything into the DataFrame. The formatting of each .txt was consistent, meaning the same logic can be applied across all files.

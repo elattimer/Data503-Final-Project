@@ -17,4 +17,4 @@
 
 ## Further details
 ### Data contained in column headers
-Data for the specific course week was originally contained in the column header for each behaviour (e.g. `Studious_W4`). This required melting the DataFrame in order to access the column headers as string values, split them to access the respective week number, and finally assign that number to a DataFrame and match the correct behaviour scores.
+Data for the specific course week is contained in the column header for each behaviour (e.g. `Studious_W4`). This requires melting the DataFrame in order to access the column headers as string values, splitting them to access the respective week number, and finally assigning that number to a DataFrame and matching with the correct behaviour scores.
