@@ -10,9 +10,14 @@ def transform_applicants(data):
     data['name'] = data['name'].str.replace('[{}]'.format(string.punctuation), '', regex = True)
 
     data['gender'] = data['gender'].fillna('Undisclosed')
+    data['gender'] = data['gender'].str.title()
 
     data['dob'] = data['dob'].fillna(pd.Timestamp('1900-01-01'))
-    data['dob'] = pd.to_datetime(data['dob'], format = 'mixed', dayfirst= True)
+    for n in range(len(data['dob'])):
+        try:
+            data['dob'][n] = pd.to_datetime(data['dob'][n], format = 'mixed', dayfirst= True)
+        except DateParseError: 
+            data['dob'][n] = pd.Timestamp('dob')
 
 
     data['email'] = data['email'].str.lower()
@@ -42,7 +47,6 @@ def transform_applicants(data):
     data['degree'] = data['degree'].str.replace('3rd', '3:1')
 
     data["invited_date"] = data['invited_date'].astype(str) + " " + data["month"]
-    
     for n in range(len(data['invited_date'])):
         try:
             data['invited_date'][n] = pd.to_datetime(data['invited_date'][n], format = 'mixed', dayfirst= True)
@@ -52,7 +56,7 @@ def transform_applicants(data):
     if 'month' in data.columns:
         data = data.drop(columns='month')
     
-    data['invited_by'] = data['invited_by'].fillna('Not invited')
+    data['invited_by'] = data['invited_by'].fillna('Not Invited')
     data['invited_by'] = data['invited_by'].str.title()
     data['invited_by'] = data['invited_by'].str.replace('Bruno Belbrook','Bruno Bellbrook')
     data['invited_by'] = data['invited_by'].str.replace('Fifi Etton', 'Fifi Eton')

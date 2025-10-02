@@ -30,8 +30,8 @@ def test_gender():
 
 def test_dob():
     df = transform(dummy_sample())
-    assert df.loc[0, 'dob'] == '1993-07-05 00:00:00'
-    assert df.loc[1, 'dob'] == '1900-01-01 00:00:00'
+    assert df.loc[0, 'dob'] == pd.Timestamp('1993-07-05 00:00:00')
+    assert df.loc[1, 'dob'] == pd.Timestamp('1900-01-01 00:00:00')
 
 def test_email():
     df = transform(dummy_sample())
@@ -69,8 +69,8 @@ def test_degree():
 
 def test_invited_date():
     df = transform(dummy_sample())
-    assert df.loc[0, 'invited_date'] == '2020-03-12 00:00:00'
-    assert df.loc[1, 'invited_date'] == '1900-01-01 00:00:00'
+    assert df.loc[0, 'invited_date'] == pd.Timestamp('2020-03-12 00:00:00')
+    assert df.loc[1, 'invited_date'] == pd.Timestamp('1900-01-01 00:00:00')
 
 def test_month():
     df = transform(dummy_sample())
@@ -79,4 +79,4 @@ def test_month():
 def test_invited_by():
     df = transform(dummy_sample())
     assert df.loc[0,'invited_by'] == 'Bruno Bellbrook'
-    assert df.loc[1,'invited_by'] == 'Not invited'
+    assert df.loc[1,'invited_by'] == 'Not Invited'
