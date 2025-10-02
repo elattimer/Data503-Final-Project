@@ -17,10 +17,10 @@ END
 IF NOT EXISTS (
     SELECT 1 
     FROM sys.tables 
-    WHERE name = 'course'
+    WHERE name = 'courses'
 )
 BEGIN
-    CREATE TABLE course (
+    CREATE TABLE courses (
         course_id INT PRIMARY KEY,
         subject_name VARCHAR(50),
         trainer_name VARCHAR(50),
@@ -32,10 +32,10 @@ END
 IF NOT EXISTS (
     SELECT 1 
     FROM sys.tables 
-    WHERE name = 'behaviourScore'
+    WHERE name = 'behavioursScore'
 )
 BEGIN
-    CREATE TABLE behaviourScore (
+    CREATE TABLE behavioursScore (
         person_id INT,
         week INT,
         course_id INT,
@@ -81,10 +81,10 @@ END
 IF NOT EXISTS (
     SELECT 1 
     FROM sys.tables 
-    WHERE name = 'person_adresses'
+    WHERE name = 'person_addresses'
 )
 BEGIN
-    CREATE TABLE person_adresses (
+    CREATE TABLE person_addresses (
         person_id INT,
         address_id INT,
         PRIMARY KEY(person_id,address_id),
