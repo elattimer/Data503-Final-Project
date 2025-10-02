@@ -2,10 +2,11 @@ from transformationScripts.transform_json import *
 from transformationScripts.person_id_mapping import *
 from transformationScripts.transform_csv_applicants import *
 from transformationScripts.transform_csv_course_behaviours import *
+from transformationScripts.transform_align_incorrect_dates import *
 
 def transform(dict_of_dfs):
     finalDict = {}
-
+    dict_of_dfs['json']=align_incorrect_dates(dict_of_dfs['json'],dict_of_dfs['txt'])
 
     #get applicants csv data
     transformed_applicants = transform_applicants(dict_of_dfs["applicants_csv"])
