@@ -15,9 +15,9 @@ def transform_applicants(data):
     data['dob'] = data['dob'].fillna(pd.Timestamp('1900-01-01'))
     for n in range(len(data['dob'])):
         try:
-            data['dob'][n] = pd.to_datetime(data['dob'][n], format = 'mixed', dayfirst= True)
+            data.loc[n,'dob'] = pd.to_datetime(data.loc[n,'dob'], format = 'mixed', dayfirst= True)
         except DateParseError: 
-            data['dob'][n] = pd.Timestamp('dob')
+            data.loc[n, 'dob'] = pd.Timestamp('1900-01-01')
 
 
     data['email'] = data['email'].str.lower()
@@ -49,9 +49,9 @@ def transform_applicants(data):
     data["invited_date"] = data['invited_date'].astype(str) + " " + data["month"]
     for n in range(len(data['invited_date'])):
         try:
-            data['invited_date'][n] = pd.to_datetime(data['invited_date'][n], format = 'mixed', dayfirst= True)
+            data.loc[n, 'invited_date'] = pd.to_datetime(data.loc[n,'invited_date'], format = 'mixed', dayfirst= True)
         except DateParseError: 
-            data['invited_date'][n] = pd.Timestamp('1900-01-01')
+            data.loc[n, 'invited_date'] = pd.Timestamp('1900-01-01')
     
     if 'month' in data.columns:
         data = data.drop(columns='month')
