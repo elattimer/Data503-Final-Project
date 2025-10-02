@@ -66,6 +66,10 @@ def transform(dict_of_dfs):
     newDictAddressPerson = {"address_person":addressDf_forPerson}
     finalDict.update(newDictAddressPerson)
 
+
+
+    print("applicants.csv Transformed")
+
     #transformed txt
     txts = dict_of_dfs["txt"]
     id_txts = set_person_id(txts,mapping_df,names_freq,course=False)
@@ -76,6 +80,9 @@ def transform(dict_of_dfs):
     #add sparta day to final dict
     newDictTxt = {"sparta_day":sparta_day_sql}
     finalDict.update(newDictTxt)
+
+
+    print("txt`s Transformed")
 
     #transform jsons
 
@@ -135,12 +142,17 @@ def transform(dict_of_dfs):
     json_data_results_id = set_person_id(json_data_results,mapping_df,names_freq,course=False)
     json_data_results_id = json_data_results_id.drop(columns=['date'])    
     big_sparta_day_table = pd.merge(json_data_results_id, id_txts.copy(), on=["id"])
-    big_sparta_day_table = big_sparta_day_table.drop(columns=['date','name'])
+    big_sparta_day_table = big_sparta_day_table.drop(columns=['date','name','location'])
     big_sparta_day_table = big_sparta_day_table.rename(columns={"id": "person_id","presentation_score":"presentation","psychometric_score":"psychometric","financial_support_self":"financial_support"})
     big_sparta_day_table = pd.merge(big_sparta_day_table, applicant_sparta_day_merge, on=["person_id"])
     
     newDictSpartaDay = {"sparta_day_results": big_sparta_day_table}
     finalDict.update(newDictSpartaDay)
+
+
+    print("Json's Transformed")
+
+
     #transform course behaviour csv
 
     csv_course = transform_csv_course_behaviours_course(dict_of_dfs["course_behaviours_csv"].copy(deep=True))
@@ -154,6 +166,6 @@ def transform(dict_of_dfs):
     newDictCsv_scores = {"behaviours":csv_behaviours}
     finalDict.update(newDictCsv_scores)
 
-    #Assemble dfs that match tables in ERD
+    print("CourseBehaviours.csv Transformed")
 
     return finalDict
