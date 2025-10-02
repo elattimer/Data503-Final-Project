@@ -21,6 +21,6 @@ Duplicate rows are dropped to account for copies of the same JSON in the raw dat
 
 ### Lists and dictionaries
 Raw JSON data contained `strengths` and `weaknesses` lists, and a `tech_self_score`, dictionary. As each JSON was processed, we iterated through each list/dictionary to create:
-- [df_strengths](dtl_2_df_strengths.md)
-- [df_weaknesses](dtl_2_df_weaknesses.md)
-- [df_tech_skills](dtl_2_df_tech_skills.md)
+- [df_strengths](dtr_2_df_strengths.md)
+- [df_weaknesses](dtr_2_df_weaknesses.md)
+- [df_tech_skills](dtr_2_df_tech_skills.md)

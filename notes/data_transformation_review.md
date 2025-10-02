@@ -34,13 +34,13 @@ This step of the process involved converting the data to correct data types and 
 In anticipation of generating unique IDs for each applicant, applicant names and assessment day/course start dates were duplicated across DataFrames, as these were required for mapping the correct IDs.
 
 Click through to see data cleaning details for each DataFrame:
-- [df_applicants](dtl_sub/dtl_2_df_applicants.md)
-- [df_sparta_day](dtl_sub/dtl_2_df_sparta_day.md)
-- [df_assessment_scores](dtl_sub/dtl_2_df_assessment_scores.md)
-- [df_strengths](dtl_sub/dtl_2_df_strengths.md)
-- [df_weaknesses](dtl_sub/dtl_2_df_weaknesses.md)
-- [df_tech_skills](dtl_sub/dtl_2_df_tech_skills.md)
-- [df_course](dtl_sub/dtl_2_df_course.md)
-- [df_behaviour_scores](dtl_sub/dtl_2_df_behaviour_scores.md)
+- [df_applicants](dtr_sub/dtr_2_df_applicants.md)
+- [df_sparta_day](dtr_sub/dtr_2_df_sparta_day.md)
+- [df_assessment_scores](dtr_sub/dtr_2_df_assessment_scores.md)
+- [df_strengths](dtr_sub/dtr_2_df_strengths.md)
+- [df_weaknesses](dtr_sub/dtr_2_df_weaknesses.md)
+- [df_tech_skills](dtr_sub/dtr_2_df_tech_skills.md)
+- [df_course](dtr_sub/dtr_2_df_course.md)
+- [df_behaviour_scores](dtr_sub/dtr_2_df_behaviour_scores.md)
 
 ### 3. Structure DataFrames to match DB schema tables

@@ -10,4 +10,4 @@
 | score						| `int`					| `int`				|															| n/a					|
 
 ## Further details
-See [`df_assessment_scores`](dtl_2_df_assessment_scores.md) for further transformation details
+See [`df_assessment_scores`](dtr_2_df_assessment_scores.md) for further transformation details
