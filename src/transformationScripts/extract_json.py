@@ -39,6 +39,10 @@ def extract_json(container_client) -> pd.DataFrame:
                 }])
             dict_df.append(df)
 
-    combined_df = pd.concat(dict_df, ignore_index=True, sort=False)
+    # Safe concatenation
+    if dict_df:
+        combined_df = pd.concat(dict_df, ignore_index=True, sort=False)
+    else:
+        combined_df = pd.DataFrame()  # returns empty DF if no JSONs this was added after failed testing 
 
     return combined_df
