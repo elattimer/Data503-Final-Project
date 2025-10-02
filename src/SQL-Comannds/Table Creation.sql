@@ -67,10 +67,10 @@ END
 IF NOT EXISTS (
     SELECT 1 
     FROM sys.tables 
-    WHERE name = 'addresses'
+    WHERE name = 'address'
 )
 BEGIN
-    CREATE TABLE addresses (
+    CREATE TABLE address (
         address_id INT PRIMARY KEY,
         post_code_id INT,
         address_line VARCHAR(50),
