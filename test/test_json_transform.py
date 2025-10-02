@@ -181,8 +181,6 @@ def test_transform_strengths_creates_correct_rows():
     ])
 })
 
-    print(expected_strengths)
-    print(result)
     
     pd.testing.assert_frame_equal(result.reset_index(drop=True), expected_strengths)
 
@@ -261,7 +259,4 @@ def test_transform_self_development():
         dtype=bool
     )
 
-    print(result)
     pd.testing.assert_series_equal(result, expected)
-
-test_transform_self_development()
