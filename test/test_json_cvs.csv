@@ -1,6 +1,6 @@
 name,date,tech_self_score,strengths,weaknesses,self_development,geo_flex,financial_support_self,result,course_interest
-Stillmann Castano,22/08/2019,"{'C#': 6, 'Java': 5, 'R': 2, 'JavaScript': 2}",['Charisma'],"['Distracted', 'Impulsive', 'Introverted']",Yes,Yes,Yes,Pass,
-Hilary Willmore,01/08/2019,"{'Python': 1, 'C#': 4, 'Java': 2, 'C++': 4}","['Patient', 'Curious', 'Problem Solving']","['Overbearing', 'Chatty', 'Indifferent']",No,Yes,Yes,Fail,Data
+Stillmann Castano,22/08/2019,"{'C#': 6, 'Java': 5, 'R': 2, 'JavaScript': 2}",['Charisma'],"[]",Yes,Yes,Yes,Pass,
+Hilary Willmore,01/08/2019,"{'Python': 1, 'C#': 4, 'Java': 2, 'C++': 4}","['Patient', 'CuRIOus', 'Problem Solving']","['Overbearing', 'Chatty', 'Indifferent']",No,Yes,Yes,Fail,Data
 Efrem Whipple,22/08/2019,"{'Ruby': 4, 'C++': 4}","['Courteous', 'Independent', 'Patient']","['Introverted', 'Impulsive', 'Anxious']",Yes,Yes,Yes,Pass,Business
 Sydel Fenne,28/08/2019,"{'Java': 3, 'SPSS': 4}",['Passionate'],"['Perfectionist', 'Sensitive']",Yes,Yes,Yes,Pass,Data
 Michel Lebarree,07/08/2019,"{'Python': 3, 'Java': 4, 'Ruby': 1, 'R': 2, 'PHP': 2, 'C++': 3}",['Versatile'],"['Controlling', 'Perfectionist', 'Chatty']",Yes,Yes,Yes,Pass,Engineering
