@@ -16,6 +16,7 @@ from transformationScripts.transform_json_finincial_support_self import transfor
 from transformationScripts.transform_json_geo_flex import transform_geo_flex
 from transformationScripts.transform_json_lists import transform_strengths
 from transformationScripts.transform_json_lists import transform_weaknesses
+from transformationScripts.transform_json_result import transform_result
 
 test_json = pd.read_csv("test/test_json_cvs.csv")
 # Convert column
@@ -184,4 +185,70 @@ def test_transform_strengths_creates_correct_rows():
     
     pd.testing.assert_frame_equal(result.reset_index(drop=True), expected_strengths)
 
-test_transform_strengths_creates_correct_rows()
+def test_transform_weaknesses_creates_correct_rows():
+    result = transform_weaknesses(test_json)
+    
+    # All names uppercased
+    assert all(name.isupper() for name in result["name"])
+    
+    #Expected
+    expected_weaknesses = pd.DataFrame({
+        "name": [
+            "HILARY WILLMORE", "HILARY WILLMORE", "HILARY WILLMORE",
+            "EFREM WHIPPLE", "EFREM WHIPPLE", "EFREM WHIPPLE",
+            "SYDEL FENNE", "SYDEL FENNE",
+            "MICHEL LEBARREE", "MICHEL LEBARREE", "MICHEL LEBARREE",
+            "COOPER INGRAHAM",
+            "BIRD LE COUNT", "BIRD LE COUNT", "BIRD LE COUNT",
+            "ORLY LORENS", "ORLY LORENS",
+            "HANNAH MESSUM",
+            "GAVIN LAMBREGTS", "GAVIN LAMBREGTS",
+            "LETTA HALSTON", "LETTA HALSTON", "LETTA HALSTON"
+        ],
+        "weakness": [
+            "Overbearing", "Chatty", "Indifferent",
+            "Introverted", "Impulsive", "Anxious",
+            "Perfectionist", "Sensitive",
+            "Controlling", "Perfectionist", "Chatty",
+            "Immature",
+            "Impatient", "Conventional", "Undisciplined",
+            "Conventional", "Passive",
+            "Intolerant",
+            "Chaotic", "Selfish",
+            "Perfectionist", "Immature", "Passive"
+        ],
+        "date": pd.to_datetime([
+            "2019-08-01", "2019-08-01", "2019-08-01",
+            "2019-08-22", "2019-08-22", "2019-08-22",
+            "2019-08-28", "2019-08-28",
+            "2019-08-07", "2019-08-07", "2019-08-07",
+            "2019-08-14",
+            "2019-08-22", "2019-08-22", "2019-08-22",
+            "2019-08-01", "2019-08-01",
+            "2019-08-29",
+            "2019-08-21", "2019-08-21",
+            "2019-08-08", "2019-08-08", "2019-08-08"
+        ])
+    })
+
+    
+    pd.testing.assert_frame_equal(result.reset_index(drop=True), expected_weaknesses)
+
+
+def test_transform_results():
+    result = transform_result(test_json)['result']
+    expected = pd.DataFrame({'result':[True,
+                  False,
+                  True,
+                  True,
+                  True,
+                  False,
+                  False,
+                  False,
+                  False,
+                  True,
+                  False]})['result']
+
+
+    pd.testing.assert_series_equal(result, expected)
+

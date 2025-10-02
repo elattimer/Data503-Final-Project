@@ -32,3 +32,5 @@ def extract():
         "course_behaviours_csv": create_combined_course_behaviours(container_academy),
         "json": extract_json(container_talent),
     }
+
+extract()

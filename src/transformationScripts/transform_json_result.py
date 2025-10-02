@@ -8,9 +8,9 @@ def transform_result(df: pd.DataFrame) -> pd.DataFrame:
             return False
         if isinstance(val, str):
             val_lower = val.strip().lower()
-            if val_lower in ("yes", "true", "1"):
+            if val_lower in ("yes", "true", "1","pass"):
                 return True
-            elif val_lower in ("no", "false", "0"):
+            elif val_lower in ("no", "false", "0","fail"):
                 return False
         return bool(val)  # fallback for numbers or already boolean
 
