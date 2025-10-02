@@ -15,7 +15,7 @@ def transform_self_development(df: pd.DataFrame) -> pd.DataFrame:
 
     # Apply transformation directly to the column
     if "self_development" in df.columns:
-        df["self_development"] = df["self_development"].apply(to_bool)
+        df["self_development"] = df["self_development"].apply(to_bool).astype(bool)
     else:
         # If column doesn't exist, create it with default False
         df["self_development"] = False

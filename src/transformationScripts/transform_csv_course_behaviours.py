@@ -1,6 +1,7 @@
 from transformationScripts.extract_csv_course_behaviours import create_combined_course_behaviours
 import pandas as pd
 
+pd.set_option('future.no_silent_downcasting', True)
 
 def transform_csv_course_behaviours_course(combined_df: pd.DataFrame) -> pd.DataFrame:
     """This accepts a dataframe created from course behaviour CSVs and transforms it into a dataframe that matches the relevant table on the ERD.
@@ -12,7 +13,7 @@ def transform_csv_course_behaviours_course(combined_df: pd.DataFrame) -> pd.Data
         pd.DataFrame: A dataframe matching the course behaviours table
     """  
     # Cleaning data
-    combined_df.fillna(0, inplace=True)
+    combined_df = combined_df.fillna(0).infer_objects(copy=False)
 
     # Creating new dataframes
     course_df = pd.DataFrame()
@@ -86,7 +87,7 @@ def transform_csv_course_behaviours_behaviour_scores(combined_df: pd.DataFrame) 
 
     combined_df['start_date'] = combined_df['file_name'].apply(lambda x : pd.to_datetime(x[-14:-4]))
     combined_df['course_id'] = combined_df['file_name'].map(course_id_map_dict)
-    combined_df.fillna(0, inplace=True)
+    combined_df = combined_df.fillna(0).infer_objects(copy=False)
     combined_df.drop('file_name', axis=1, inplace=True)
 
 
