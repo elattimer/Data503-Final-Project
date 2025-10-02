@@ -12,7 +12,11 @@ def extract_csv_apps(container_client):
             blob_client = container_client.get_blob_client(blob=filename)
             data = blob_client.download_blob().readall().decode("utf-8")
 
-            df = pd.read_csv(StringIO(data))
-            dataframes.append(df)
+            if data:
+                df = pd.read_csv(StringIO(data))
+                dataframes.append(df)
 
-    return pd.concat(dataframes, ignore_index=True)
+    if dataframes:
+        return pd.concat(dataframes, ignore_index=True)
+    else:
+        return pd.DataFrame()
