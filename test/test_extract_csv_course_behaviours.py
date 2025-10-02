@@ -88,3 +88,28 @@ def test_create_combined_course_behaviours_combines_data():
         assert isinstance(result, pd.DataFrame)
         assert len(result) == 3
         assert list(result['name']) == ['John', 'Darla', 'Gary']
+
+
+def test_create_combined_course_behaviours_with_empty_df():
+    data_df = pd.DataFrame()
+    engineering_df = pd.DataFrame({'name': ['Darla'], 'trainer': ['Carly'], 'Analytic_W1': [8]})
+    business_df = pd.DataFrame({'name': ['Gary'], 'trainer': ['Sandra'], 'Analytic_W1': [6]})
+
+    with patch('src.transformationScripts.extract_csv_course_behaviours.extract_csv_course_behaviours', side_effect=[data_df, engineering_df, business_df]) as mock_extract:
+        result = create_combined_course_behaviours(mock_container_client)
+
+        assert isinstance(result, pd.DataFrame)
+        assert len(result) == 2
+        assert list(result['name']) == ['Darla', 'Gary']
+
+
+def test_create_combined_course_behaviours_with_all_empty_dfs():
+    data_df = pd.DataFrame()
+    engineering_df = pd.DataFrame()
+    business_df = pd.DataFrame()
+
+    with patch('src.transformationScripts.extract_csv_course_behaviours.extract_csv_course_behaviours', side_effect=[data_df, engineering_df, business_df]) as mock_extract:
+        result = create_combined_course_behaviours(mock_container_client)
+
+        assert isinstance(result, pd.DataFrame)
+        assert result.empty
