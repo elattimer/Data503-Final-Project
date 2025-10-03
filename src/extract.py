@@ -27,7 +27,7 @@ container_academy = blob_service_client.get_container_client("academy")
 filterwarnings("ignore", category=FutureWarning)
 
 
-def extract()->pd.DataFrame:
+def extract()->dict:
     """
     Runs all the extract functions for each file type in the remote storage.
     Requires the container clients, container_talent and container_academy, to be defined.
@@ -42,3 +42,4 @@ def extract()->pd.DataFrame:
         "course_behaviours_csv": create_combined_course_behaviours(container_academy),
         "json": extract_json(container_talent),
     }
+
