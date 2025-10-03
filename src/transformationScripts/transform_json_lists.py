@@ -15,7 +15,7 @@ def transform_strengths(data: pd.DataFrame) -> pd.DataFrame:
         for j in row["strengths"]:
             new_data = {
                 "name": [str(row["name"]).upper()],
-                "strength": [j],
+                "strength": [j.title()],
                 "date" : [row["date"]],
             }
             new_df = pd.DataFrame(new_data)
@@ -53,7 +53,7 @@ def transform_weaknesses(data: pd.DataFrame) -> pd.DataFrame:
         for j in row["weaknesses"]:
             new_data = {
                 "name": [str(row["name"]).upper()],
-                "weakness": [j],
+                "weakness": [j.title()],
                 "date" : [row["date"]],
             }
             new_df = pd.DataFrame(new_data)
