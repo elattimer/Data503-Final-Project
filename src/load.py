@@ -5,6 +5,14 @@ from sqlalchemy import create_engine
 import sqlalchemy.engine.base
 
 def load(data : pd.DataFrame):
+    """
+    Takes in the transformed DataFrames which mirror the tables in the SQL database.
+    Creates a connection to the SQL database and appends all data to each table.
+
+    :param data:
+    :return:
+    """
+
     engine = server_connection()
 
 
