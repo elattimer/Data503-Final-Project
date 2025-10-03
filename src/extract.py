@@ -1,3 +1,4 @@
+import pandas as pd
 from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
 from warnings import filterwarnings
@@ -26,10 +27,19 @@ container_academy = blob_service_client.get_container_client("academy")
 filterwarnings("ignore", category=FutureWarning)
 
 
-def extract():
+def extract()->dict:
+    """
+    Runs all the extract functions for each file type in the remote storage.
+    Requires the container clients, container_talent and container_academy, to be defined.
+
+    Each extract returns a DataFrame which is stored in a dictionary.
+
+    :return Dictionary of DataFrames:
+    """
     return {
         "txt": extract_txt_to_df(container_talent),
         "applicants_csv": extract_csv_apps(container_talent),
         "course_behaviours_csv": create_combined_course_behaviours(container_academy),
         "json": extract_json(container_talent),
     }
+
