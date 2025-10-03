@@ -2,15 +2,22 @@ import pandas as pd
 import string
 from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
+from pandas._libs.tslibs.parsing import DateParseError
+
 def transform_applicants(data):
     data = data.drop_duplicates(keep = 'first')
     data['name'] = data['name'].str.upper()
     data['name'] = data['name'].str.replace('[{}]'.format(string.punctuation), '', regex = True)
 
     data['gender'] = data['gender'].fillna('Undisclosed')
+    data['gender'] = data['gender'].str.title()
 
     data['dob'] = data['dob'].fillna(pd.Timestamp('1900-01-01'))
-    data['dob'] = pd.to_datetime(data['dob'], format = 'mixed', dayfirst= True)
+    for n in range(len(data['dob'])):
+        try:
+            data.loc[n,'dob'] = pd.to_datetime(data.loc[n,'dob'], format = 'mixed', dayfirst= True)
+        except DateParseError: 
+            data.loc[n, 'dob'] = pd.Timestamp('1900-01-01')
 
 
     data['email'] = data['email'].str.lower()
@@ -40,13 +47,16 @@ def transform_applicants(data):
     data['degree'] = data['degree'].str.replace('3rd', '3:1')
 
     data["invited_date"] = data['invited_date'].astype(str) + " " + data["month"]
-    data['invited_date'] = data['invited_date'].fillna(pd.Timestamp('1900-01-01'))
-    data['invited_date'] = pd.to_datetime(data['invited_date'], format = 'mixed', dayfirst= True)
+    for n in range(len(data['invited_date'])):
+        try:
+            data.loc[n, 'invited_date'] = pd.to_datetime(data.loc[n,'invited_date'], format = 'mixed', dayfirst= True)
+        except DateParseError: 
+            data.loc[n, 'invited_date'] = pd.Timestamp('1900-01-01')
     
     if 'month' in data.columns:
         data = data.drop(columns='month')
     
-    data['invited_by'] = data['invited_by'].fillna('Not invited')
+    data['invited_by'] = data['invited_by'].fillna('Not Invited')
     data['invited_by'] = data['invited_by'].str.title()
     data['invited_by'] = data['invited_by'].str.replace('Bruno Belbrook','Bruno Bellbrook')
     data['invited_by'] = data['invited_by'].str.replace('Fifi Etton', 'Fifi Eton')

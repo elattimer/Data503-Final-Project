@@ -1,5 +1,5 @@
 import pandas as pd
-from transform_json import fix_date, get_json_sparta_day_results
+from transformationScripts.transform_json import fix_date, get_json_sparta_day_results
 
 # --- Can't import the strips_names func from person_id_mapping - getting a ModuleNotFoundError from inside the person_id_mapping file - JT ---
 # from person_id_mapping import strips_names
