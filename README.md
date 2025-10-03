@@ -3,7 +3,9 @@
 ## Contents
 1. [Project Brief](#project-brief)
 2. [Contribution Rules](#contribution-rules)
-x. [Additional Documentation](#additional-documentation)
+3. [Installation Instructions](#installation-instructions)
+4. [Operating Instructions](#operating-instructions)
+5. [Additional Documentation](#additional-documentation)
 
 ## Project Brief
 ### Overview
@@ -34,11 +36,12 @@ The raw data tracks a candidate's journey from the application process to their 
 ## Contribution Rules 
 ### Repo Organisation
 - Branch name = feature, not author
-- Pull requests to be approved by a colleage, not yourself!
+- Pull requests to be approved by a colleague, not yourself!
 
-### Commits
-- Commit at least twice a day &rarr; before lunch and before EOD
-- Descriptive message that summarises the changes made
+### Commits and Pushes
+- Commit after a significant working change
+- Include a descriptive message that summarises the changes made
+- Push at least twice a day &rarr; before lunch and before EOD
 
 ### Codebase
 - Pythonic formatting please!
@@ -48,18 +51,63 @@ The raw data tracks a candidate's journey from the application process to their 
 - Ensure test coverage
 - Remember testing file format: `test_<file_name>.py`
 
-
-
 ## Tech Stack 
+- Azure
+- Python
+- MSSQL on Ubuntu server
+- SQL management tools - MS SQL Management Studio, VS 2022
+- PowerBI
 
-## Instructions for Installation 
+## Installation and set-up Instructions 
+### Clone repo 
+    git clone https://github.com/elattimer/Data503-Final-Project.git
+
+### Install libraries via requirements.txt
+    pip install -r requirements.txt
+
+### Create Azure VM (on Ubuntu server)
+1. Create a new resource and select the Ubuntu OS of your choice
+2. (Optional) Set up [history logging](https://www.digitalocean.com/community/tutorials/how-to-use-bash-history-commands-and-expansions-on-a-linux-vps)
+
+### Install MSSQL
+```
+curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | sudo gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg
+curl -fsSL https://packages.microsoft.com/config/ubuntu/24.04/mssql-server-preview.list | sudo tee /etc/apt/sources.list.d/mssql-server-preview.list
+sudo apt-get update
+sudo apt-get install -y mssql-server
+
+# Set password
+sudo /opt/mssql/bin/mssql-conf setup
+
+# Check the SQL server is running
+systemctl status mssql-server --no-pager
+```
+
+### Connect to VM
+    ssh -i <ssh-key-path> <vm-username>@<vm-ip-address>
+
+### Firewall and SSH tunnelling
+```
+# Open VM for tunneling
+sudo ufw allow 1433/tcp
+sudo ufw reload
+sudo ss -tlnp | grep 1433
+
+# Start tunnel (exit current terminal) in a new terminal window
+eval "$(ssh-agent -s)"
+ssh-add data-503-project-key.pem
+
+# Set 127.0.0.1 port 1433 as your new connection
+ssh -L 1433:127.0.0.1:1433 <azure-username>@<azure-vm-ip-address>
+```
+
+### Define SQL tables
+Run the [table_creation.sql](src/sql_commands/table_creation.sql) queries with your software of choice
+
 
 ## Operating Instructions 
-
-## Authors and Acknowledgements 
-
-
-
+- `python src/main.py` to run the ETL pipeline
+- Access the SQL database with your SQL management tool of choice
 
 ## Additional Documentation
 - [ERD](documentation/erd.md)
