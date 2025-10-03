@@ -12,4 +12,4 @@
 
 ## Further details
 ### Data contained in file name
-Data for `subject_name`, `class_number_` and `start_date` was contained in the file name rather than the file itself. This required splitting the string by the appropriate delimiter and converting to the correct data type before assigning to the DataFrame.
+Data for `subject_name`, `class_number_` and `start_date` is contained in the file name rather than the file itself. This requires splitting the string by the appropriate delimiter and converting to the correct data type before assigning to the DataFrame.

@@ -2,7 +2,7 @@
 &larr; [Back to README](../README.md)
 
 ## Raw data exploration
-There were 4 unique raw data structures that required transformation. The naming convention and internal structure of each file was consistent with its respective 'type'.
+There are 4 unique raw data structures that require transformation. The naming convention and internal structure of each file is consistent with its respective 'type'.
 
 | Data													| Documentation shorthand	| File name example              |
 |-------------------------------------------------------|---------------------------|--------------------------------|	
@@ -29,9 +29,9 @@ There were 4 unique raw data structures that required transformation. The naming
 `course.csv` &rarr; `df_course`, `df_behaviour_scores`
 
 ### 2. Cleaning DataFrame data
-This step of the process involved converting the data to correct data types and ensuring consistent formatting across DataFrames. In dealing with potenital null values, placeholder values matching the target data type were agreed upon. These rules did not always need to be applied.
+During this step, convert the data to correct data types and ensure consistent formatting across DataFrames. In dealing with potenital null values, placeholder values matching the target data type are agreed upon. These rules will not always need to be applied.
 
-In anticipation of generating unique IDs for each applicant, applicant names and assessment day/course start dates were duplicated across DataFrames, as these were required for mapping the correct IDs.
+In anticipation of generating unique IDs for each applicant, applicant names and assessment day/course start dates are duplicated across DataFrames, as these will be required for mapping the correct IDs.
 
 Click through to see data cleaning details for each DataFrame:
 - [df_applicants](dtr_sub/dtr_2_df_applicants.md)
@@ -44,6 +44,11 @@ Click through to see data cleaning details for each DataFrame:
 - [df_behaviour_scores](dtr_sub/dtr_2_df_behaviour_scores.md)
 
 ### 3. Structure DataFrames to match DB schema tables
-- Generate and map person ID for each applicant
-- Restructure DataFrames to match SQL database schema
-- Everything now ready to load
+#### Generate and map person ID for each applicant
+Pass the clean DataFrames through a function that uses a person's name and assessment day/course start dates to map the correct person ID to each record.
+
+#### Restructure DataFrames to match database schema
+Referring to the ERD, merge existing DataFrames to create new ones that match the structure of each entity table in the database.
+
+#### Everything is now ready to load into the SQL database
+Store all schema DataFrames in a dictionary that can be passed to the load function.

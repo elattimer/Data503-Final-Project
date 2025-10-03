@@ -4,8 +4,24 @@ from transformationScripts.transform_csv_applicants import *
 from transformationScripts.transform_csv_course_behaviours import *
 from transformationScripts.transform_align_incorrect_dates import *
 
-def transform(dict_of_dfs):
+def transform(dict_of_dfs: dict[str, pd.DataFrame]) -> dict[str,pd.DataFrame]:
+    """
+    Takes in a dictionary of extracted DataFrames and transforms it into clean DataFrames, matching tables in the SQL database.
+
+    1. Initiates empty dict
+    2. Aligns the json dates with txt dates.
+    3. Cleans the applicants data and sets a person_id per row
+    4. Creates a person_id mapping dictionary using interview dates and names_freq to record frequency of names appearing
+    5. Run transformations, set_person_id and perform merges for each table in the database. Add completed table to dict
+    6. Return tables as a dict of dataframes
+
+
+    :param dict_of_dfs:
+    :return finalDict:
+    """
     finalDict = {}
+
+    #Aligns the dates in jsons with dates in txt
     dict_of_dfs['json']=align_incorrect_dates(dict_of_dfs['json'],dict_of_dfs['txt'])
 
     #get applicants csv data
@@ -21,12 +37,6 @@ def transform(dict_of_dfs):
     #Create frequency dictionary
     names_freq = get_name_frequency_dict(mapping_df['name'])
 
-    '''
-    #Set person ids   (mappingdf,dictionary,df)
-    #For each transformed dataframe
-    #Need name column 'name'and date column 'date' (replace data with transformed data)
-    #id_df = set_person_id('data',mapping_df,names_freq,course=False)
-    '''
 
     #transform applicants csv
 

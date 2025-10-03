@@ -14,13 +14,13 @@
 
 ## Further details
 ### Incorrect dates
-Raw JSON data had incorrect dates - assessment days in June had been incorrectly entered as taking place in July. This required a function to map the correct dates onto the `df_assessment_scores` DataFrame, using `df_sparta_day` as the authoritative date source.
+Raw JSON data has incorrect dates - assessment days in June have been incorrectly entered as taking place in July. This requires a function to map the correct dates onto the `df_assessment_scores` DataFrame, using `df_sparta_day` as the authoritative date source.
 
 ### Dropped rows
 Duplicate rows are dropped to account for copies of the same JSON in the raw data
 
 ### Lists and dictionaries
-Raw JSON data contained `strengths` and `weaknesses` lists, and a `tech_self_score`, dictionary. As each JSON was processed, we iterated through each list/dictionary to create:
+Raw JSON data contains `strengths` and `weaknesses` lists, and a `tech_self_score`, dictionary. As each JSON is processed, we iterate through each list/dictionary to create:
 - [df_strengths](dtr_2_df_strengths.md)
 - [df_weaknesses](dtr_2_df_weaknesses.md)
 - [df_tech_skills](dtr_2_df_tech_skills.md)
